@@ -2,7 +2,7 @@
     "name": "strategio/contentio-sdk",
     "description": "PHP SDK for Contentio CRM websites",
     "type": "library",
-    "license": "unlisenced",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "ContentioSdk\\": "src/"
