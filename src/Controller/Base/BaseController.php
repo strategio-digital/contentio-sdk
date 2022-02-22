@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace ContentioSdk\Controller;
+namespace ContentioSdk\Controller\Base;
 
 use ContentioSdk\Component\AssetLoader;
 use ContentioSdk\Debugger\ApiDebugger;
@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class AbstractController
+abstract class BaseController implements IController
 {
     private const UBT = 'user_bearer_token';
     
@@ -32,7 +32,13 @@ abstract class AbstractController
     
     protected \stdClass $template;
     
-    public function __construct(public Request $request, protected Response $response, private Engine $latte, private ApiDebugger $apiDebugger)
+    public function __construct(
+        private Engine      $latte,
+        private ApiDebugger $apiDebugger,
+        protected Response  $response,
+        public Request      $request,
+        AssetLoader         $assetLoader
+    )
     {
         $this->userToken = (string)$this->request->cookies->get(self::UBT) ?: null;
         
@@ -50,8 +56,9 @@ abstract class AbstractController
         }
         
         $this->client = new Client(['base_uri' => $_ENV['API_URL_PHP'], 'headers' => $apiHeaders]);
+        
         $this->template = new \stdClass;
-        $this->template->assets = new AssetLoader();
+        $this->template->assets = $assetLoader;
         $this->template->controller = $this;
     }
     
@@ -142,16 +149,7 @@ abstract class AbstractController
         return $result;
     }
     
-    protected function render(string $filePath, int $status = Response::HTTP_OK): never
-    {
-        $html = $this->latte->renderToString($filePath, $this->template);
-        $this->response->setStatusCode($status);
-        $this->response->setContent($html);
-        $this->response->send();
-        exit;
-    }
-    
-    protected function renderError(ResponseInterface $response, string $message): never
+    public function renderError(ResponseInterface $response, string $message): void
     {
         $this->template->error = [
             'code' => $response->getStatusCode(),
@@ -161,7 +159,17 @@ abstract class AbstractController
         $html = $this->latte->renderToString(Path::viewDir() . '/controller/error.latte', $this->template);
         $this->response->setStatusCode($response->getStatusCode());
         $this->response->setContent($html);
-        $this->response->send();
-        exit;
+    }
+    
+    /**
+     * @param string $filePath
+     * @return void
+     * @internal
+     */
+    public function render(string $filePath): void
+    {
+        $html = $this->latte->renderToString($filePath, $this->template);
+        $this->response->setStatusCode(Response::HTTP_OK);
+        $this->response->setContent($html);
     }
 }

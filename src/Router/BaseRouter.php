@@ -7,14 +7,14 @@ declare(strict_types=1);
 
 namespace ContentioSdk\Router;
 
-use Strategio\Controller\ErrorController;
+use ContentioSdk\Controller\ErrorController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-abstract class AbstractRouter
+abstract class BaseRouter
 {
     private RouteCollection $routes;
     

@@ -38,4 +38,9 @@ class Path
     {
         return __DIR__ . '/../../../../../www';
     }
+    
+    public static function configDir(): string
+    {
+        return __DIR__ . '/../../../../../config';
+    }
 }

@@ -1,0 +1,46 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType Strategio\Component\AssetLoader $assets}
+{varType Strategio\Controller\AbstractController $controller}
+
+<!doctype html>
+<html lang="cs" class="h-full {block html}bg-white{/block}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {block head}
+        <meta name="robots" content="index,follow">
+    {/block}
+    <link rel="stylesheet" href="{$assets->get('/css/App.css')}">
+</head>
+<body class="h-full">
+    {block top}
+        {include './component/navbar.latte'}
+    {/block}
+
+    {include content}
+
+    {block bottom}
+        {include './component/newsletter.latte'}
+        {include './component/page-footer.latte'}
+    {/block}
+
+    {block modal}{/block}
+
+    {block scripts}
+        <script src="{$assets->get('/js/App.js')}"></script>
+        <script n:syntax="off">
+            if (window.measurement.gtm_enabled === true) {
+                (function(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer', window.measurement.gtm_id);
+            }
+        </script>
+    {/block}
+</body>
+</html>

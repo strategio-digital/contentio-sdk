@@ -1,0 +1,53 @@
+{*
+ * Copyright (c) 2021 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType Strategio\Component\AssetLoader $assets}
+{varType Strategio\Controller\CategoryController $controller}
+
+{extends './../@layout.latte'}
+
+{block head}
+    <title>Kategorie</title>
+    <meta name="description" content="Popisek kategirie">
+    {include parent}
+{/block}
+
+{block content}
+    <div class="bg-white">
+        <div x-data="{ filters: false }">
+            {include './../component/category/mobile-filters.latte'}
+            {include './../component/category/breadcrumb.latte'}
+
+            <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="pt-16">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-gray-900">Název kategorie</h1>
+                    <p class="mt-4 text-base text-gray-500">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aspernatur consectetur consequatur
+                        cum dignissimos doloribus ducimus ipsa, laboriosam minima nam nostrum perferendis perspiciatis
+                        placeat quam quas, qui tenetur, vitae voluptate.
+                    </p>
+                </div>
+
+                {include './../component/category/subcategories.latte'}
+                {include './../component/category/top-icons.latte'}
+
+                <section aria-labelledby="products-heading" class="pt-6 pb-24">
+                    <h2 id="products-heading" class="sr-only">Products</h2>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
+                        {include './../component/category/filters.latte'}
+
+                        <div class="lg:col-span-3">
+                            {include './../component/category/product-grid.latte'}
+                        </div>
+                    </div>
+
+                    {include './../component/category/pagination.latte'}
+                </section>
+            </main>
+        </div>
+    </div>
+
+{/block}
