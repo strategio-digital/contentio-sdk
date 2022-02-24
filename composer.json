@@ -1,0 +1,36 @@
+{
+    "name": "strategio/contentio-sdk",
+    "description": "PHP SDK for Contentio CRM websites",
+    "type": "library",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "ContentioSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jiří Zapletal",
+            "email": "jz@strategio.digital"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.4",
+        "latte/latte": "^2.10",
+        "nette/utils": "^3.2",
+        "symfony/dotenv": "^6.0",
+        "symfony/http-foundation": "^6.0",
+        "symfony/routing": "^6.0",
+        "tracy/tracy": "^2.9",
+        "nette/di": "^3.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.4"
+    },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse -l 8 app vendor/strategio/contentio-sdk/src"
+    }
+}

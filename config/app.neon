@@ -1,0 +1,15 @@
+services:
+    routerFactory: ContentioSdk\Router\RouterFactory
+    response: Symfony\Component\HttpFoundation\Response
+    request:
+        factory: Symfony\Component\HttpFoundation\Request::createFromGlobals()
+    requestContext:
+        factory: Symfony\Component\Routing\RequestContext
+        setup:
+            - fromRequest(@request)
+
+    - Latte\Engine
+    - ContentioSdk\App
+    - ContentioSdk\Bootstrap
+    - ContentioSdk\Debugger\ApiDebugger
+    - ContentioSdk\Component\AssetLoader

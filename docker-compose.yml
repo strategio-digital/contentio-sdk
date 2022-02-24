@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  strategio-network:
+
+services:
+  app:
+    build: .
+    restart: "no"
+    networks:
+      - strategio-network
+    environment:
+      TZ: ${APP_TIME_ZONE}
+    ports:
+      - "1337:80"
+    volumes:
+      - $PWD:/var/www/html:cached

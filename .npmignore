@@ -1,0 +1,11 @@
+*
+!.npmignore
+!package.json
+!yarn.lock
+!mix.config.js
+
+readme.md
+temp
+log
+node_modules
+vendor

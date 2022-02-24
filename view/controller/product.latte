@@ -1,0 +1,21 @@
+{*
+ * Copyright (c) 2022 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType Strategio\Component\AssetLoader $assets}
+{varType Strategio\Controller\ArticleController $controller}
+{varType array $article}
+
+{extends './../@layout.latte'}
+
+{block head}
+    <title>Detail produktu</title>
+    <meta name="description" content="Detail produktu">
+    {include parent}
+{/block}
+
+{block content}
+    {include './../component/product/main.latte'}
+    {include './../component/product/tabs.latte'}
+{/block}

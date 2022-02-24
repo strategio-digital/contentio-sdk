@@ -1,0 +1,26 @@
+{*
+ * Copyright (c) 2022 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType Strategio\Component\AssetLoader $assets}
+{varType Strategio\Controller\HomeController $controller}
+
+{extends './../@layout.latte'}
+
+{block head}
+    {include parent}
+    <meta name="description" content="Přetavte své plány v reálné technologické řešení.">
+    <title>Ukázka e-shopového řešení na míru | Contentio</title>
+{/block}
+
+{block content}
+    {include './../component/homepage/hero-section.latte'}
+
+    <main>
+        {include './../component/homepage/categories.latte'}
+        {include './../component/homepage/trending-products.latte'}
+        {include './../component/homepage/incentives.latte'}
+        {include './../component/homepage/testimonials.latte'}
+    </main>
+{/block}
