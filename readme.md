@@ -34,11 +34,11 @@ _(If you read this readme on **npmjs.com**, switch to https://github.com/strateg
 
 ## IMPORTANT NOTES FOR OUR CONTRIBUTORS
 
-### ⚠️ Don't forget to `yarn publish` when you make changes in these 2 files:
-💥 **If you forget you make other developers stuck.**
-2. yarn.lock
-3. package.json
-
+### ⚠️💥 Don't forget to `yarn publish` when you make changes in these 2 files:
+```
+    1. package.json
+    2. yarn.lock
+```
 
 ## Examples for classic usage
 
