@@ -20,10 +20,16 @@ class Bootstrap
 {
     public function projectRootPath(string $rootPath = __DIR__ . '/../../../../') : Bootstrap
     {
-        Path::setProjectPath(realpath($rootPath));
+        /** @var string $realPath */
+        $realPath = realpath($rootPath);
+        Path::setProjectPath($realPath);
         return $this;
     }
     
+    /**
+     * @param array<string> $configPaths
+     * @return Container
+     */
     public function configure(array $configPaths): Container
     {
         // Load env
