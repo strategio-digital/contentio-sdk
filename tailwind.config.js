@@ -5,8 +5,6 @@
 
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-console.log(__dirname);
-
 module.exports = {
     content: [
         __dirname + '/assets/**/*.css',
