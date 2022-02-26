@@ -1,0 +1,23 @@
+{*
+ * Copyright (c) 2022 Strategio Digital s.r.o.
+ * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
+ *}
+
+{varType Strategio\Component\AssetLoader $assets}
+{varType Strategio\Controller\ArticleController $controller}
+
+{extends './../@layout.latte'}
+
+{block head}
+    <title>Nákupní košík</title>
+    <meta name="description" content="Váš nákupní košík">
+    {include parent}
+{/block}
+
+{block bottom}{/block}
+
+{block content}
+    <div id="vueCart"></div>
+{/block}
+
+

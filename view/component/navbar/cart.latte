@@ -8,12 +8,12 @@
 
 <!-- Cart -->
 <div class="flow-root text-sm lg:relative" x-data="{ open: false, touch: false }" @mouseenter="open = true" @mouseleave="open = touch = false;">
-    <button type="button" class="group -m-2 p-2 flex items-center" aria-expanded="false" @click="if(!touch) open = !open; touch = false;" @touchstart="touch = true; open = !open">
+    <a href="{$controller->link('/kosik')}" type="button" class="group -m-2 p-2 flex items-center" aria-expanded="false" @click="if(!touch) open = !open; touch = false;" @touchstart="touch = true; open = !open">
         <svg class="flex-shrink-0 h-6 w-6 text-gray-400" :class="open ? 'text-gray-500' : ''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
         </svg>
         <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800 whitespace-nowrap">0<span class="hidden sm:inline"> CZK</span></span>
-    </button>
+    </a>
     <div class="z-40 absolute pt-5 lg:pt-3 w-full lg:w-80 right-0" x-show="open" style="display: none">
         <div
                 x-show="open"
@@ -54,10 +54,6 @@
                 <a href="{*$controller->link('/kosik')*}" class="inline-block w-full text-center bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
                     Objednat zboží
                 </a>
-
-                <p class="mt-6 text-center">
-                    <a href="{*$controller->link('/kosik')*}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Prohlédnout košík</a>
-                </p>
             </form>
         </div>
     </div>

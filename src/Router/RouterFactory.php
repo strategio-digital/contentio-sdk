@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace ContentioSdk\Router;
 
 use ContentioSdk\Controller\ArticleController;
+use ContentioSdk\Controller\CartController;
 use ContentioSdk\Controller\CategoryController;
 use ContentioSdk\Controller\ContactController;
 use ContentioSdk\Controller\CustomerController;
@@ -21,7 +22,8 @@ class RouterFactory extends BaseRouter
     {
         $this->add('home', '/', [HomeController::class, 'index']);
         $this->add('contact', '/kontakty', [ContactController::class, 'index']);
-    
+        $this->add('cart', '/kosik', [CartController::class, 'index']);
+
         $this->add('category', '/kategorie/{slug}', [CategoryController::class, 'index']);
         $this->add('product_detail', '/produkty/{slug}', [ProductController::class, 'index']);
         $this->add('article_detail', '/clanky/{slug}', [ArticleController::class, 'index']);

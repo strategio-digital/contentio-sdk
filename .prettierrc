@@ -1,0 +1,11 @@
+{
+    "editor.formatOnSave": true,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "jsxBracketSameLine": false,
+    "printWidth": 120,
+    "proseWrap": "always",
+    "tabWidth": 4,
+    "trailingComma": "all",
+    "arrowParens": "always"
+}
