@@ -1,18 +1,27 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import Step2View from '../views/Step2View.vue';
+import BillingInfo from '../views/BillingInfo.vue';
+import Cart from '../views/Cart.vue';
+import DeliveryAndPayment from '../views/DeliveryAndPayment.vue';
 
 export default () =>
     createRouter({
+        // linkActiveClass: 'test',
         history: createWebHashHistory(),
         routes: [
             {
                 path: '/',
-                component: HomeView,
+                name: 'cart',
+                component: Cart,
             },
             {
-                path: '/step2',
-                component: Step2View,
+                path: '/doprava-a-platba',
+                name: 'delivery-and-payment',
+                component: DeliveryAndPayment,
+            },
+            {
+                path: '/dodaci-udaje',
+                name: 'billing-info',
+                component: BillingInfo,
             },
         ],
     });

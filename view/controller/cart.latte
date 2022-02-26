@@ -3,9 +3,6 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\ArticleController $controller}
-
 {extends './../@layout.latte'}
 
 {block head}
@@ -17,7 +14,9 @@
 {block bottom}{/block}
 
 {block content}
-    <div id="vueCart"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="vueCart"></div>
+    </div>
 {/block}
 
 

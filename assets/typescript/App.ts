@@ -4,10 +4,10 @@
  */
 
 import FormValidator from "./Utils/FormValidator";
-import VueCart from '../vue/cart/src/main';
 import ContactForm from './Components/ContactForm';
 import Measurement from './Components/Measurement';
 import SubscribeForm from './Components/SubscribeForm';
+import VueJSInit from './Components/VueInit';
 import Alpine from './Plugins/Alpine';
 
 (() => {
@@ -22,13 +22,11 @@ import Alpine from './Plugins/Alpine';
 
     // Subscribe Form
     SubscribeForm(formValidator, document.getElementById('subscribeForm') as HTMLFormElement | null, []);
-    
+
     // Contact Form
     // TODO:
     ContactForm();
 
-    // Cart init
-    if (document.getElementById('vueCart')) {
-        VueCart();
-    }
+    // VueJS init
+    VueJSInit();
 })();
