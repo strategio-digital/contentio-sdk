@@ -1,18 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
+import { getDeliveryMethods, DeliveryMethodsType, DeliveryMethodType } from '../../../../typescript/Api';
+import Loader from './Loader.vue';
+import { useGlobalStore } from '../../../store/counter';
 
-const deliveries = [
-    {
-        name: 'Osobní odběr - České Budějovice',
-        description: 'Balík převezmete u nás (pouze po telefonické domluvě).',
-        price: 89,
-    },
-    { name: 'Zásilkovna', description: 'Balík převezmete ve zvolené Zásilkovně.', price: 45 },
-    { name: 'Česká Pošta - na poštu', description: 'Balík převezmete na zvolené poště.', price: 89 },
-];
+const store = useGlobalStore();
 
-const selected = ref(deliveries[0]);
+const deliveryMethods = ref<DeliveryMethodsType>();
+const selected = ref<DeliveryMethodType>();
+
+onMounted(async () => {
+    const methods = await getDeliveryMethods({
+        countryId: store.countryId,
+    });
+    console.log(methods, 'delivery');
+    if (methods.length) {
+        deliveryMethods.value = methods.filter((method) => method.active);
+    }
+});
+
+watch(selected, () => {
+    if (selected.value) {
+        store.setDelivery(selected.value);
+    }
+});
 </script>
 
 <template>
@@ -20,17 +32,19 @@ const selected = ref(deliveries[0]);
         <RadioGroupLabel class="text-lg font-medium text-gray-900 block mb-4"> Zvolte dopravu </RadioGroupLabel>
 
         <div class="relative bg-white rounded-md -space-y-px">
+            <Loader v-if="!deliveryMethods" />
+
             <RadioGroupOption
                 as="template"
-                v-for="(delivery, deliveryIdx) in deliveries"
-                :key="delivery.name"
-                :value="delivery"
+                v-for="(method, methodIdx) in deliveryMethods"
+                :key="method.name"
+                :value="method"
                 v-slot="{ checked = false, active = false }"
             >
                 <div
                     :class="[
-                        deliveryIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
-                        deliveryIdx === deliveries.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
+                        methodIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
+                        methodIdx === deliveryMethods?.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
                         checked ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200',
                         'relative border p-4 flex cursor-pointer focus:outline-none',
                     ]"
@@ -52,19 +66,19 @@ const selected = ref(deliveries[0]);
                                 as="span"
                                 :class="[checked ? 'text-indigo-900' : 'text-gray-900', 'block text-sm font-medium']"
                             >
-                                {{ delivery.name }}
+                                {{ method.name }}
                             </RadioGroupLabel>
                             <RadioGroupDescription
                                 as="span"
                                 :class="[checked ? 'text-indigo-700' : 'text-gray-500', 'block text-sm']"
                             >
-                                {{ delivery.description }}
+                                {{ method.description }}
                             </RadioGroupDescription>
                         </div>
                     </div>
 
                     <RadioGroupDescription class="ml-6 pl-1 text-sm text-right self-center text-indigo-900 font-medium"
-                        >{{ delivery.price }} Kč</RadioGroupDescription
+                        >{{ method.price }} Kč</RadioGroupDescription
                     >
                 </div>
             </RadioGroupOption>

@@ -1,34 +1,50 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
+import { getPaymentMethods, PaymentMethodsType } from '../../../../typescript/Api';
+import Loader from './Loader.vue';
+import { useGlobalStore } from '../../../store/counter';
 
-const payments = [
-    {
-        name: 'Dobírkou',
-        description: 'Zaplatíte v hotovosti až při převzetí objednávky.',
-        price: 49,
-    },
-];
+const store = useGlobalStore();
 
-const selected = ref(payments[0]);
+const paymentMethods = ref<PaymentMethodsType>();
+const selected = ref();
+
+onMounted(async () => {
+    const methods = await getPaymentMethods({
+        currencyId: store.currencyId,
+    });
+    console.log(methods, 'payment');
+    if (methods) {
+        paymentMethods.value = methods.filter((method) => method.active);
+    }
+});
+
+watch(selected, () => {
+    if (selected.value) {
+        store.setPayment(selected.value);
+    }
+});
 </script>
 
 <template>
     <RadioGroup v-model="selected" class="mb-5">
-        <RadioGroupLabel class="text-lg font-medium text-gray-900 block mb-4"> Zvolte dopravu </RadioGroupLabel>
+        <RadioGroupLabel class="text-lg font-medium text-gray-900 block mb-4"> Zvolte platbu </RadioGroupLabel>
 
         <div class="relative bg-white rounded-md -space-y-px">
+            <Loader v-if="!paymentMethods" />
+
             <RadioGroupOption
                 as="template"
-                v-for="(payment, paymentIdx) in payments"
-                :key="payment.name"
-                :value="payment"
+                v-for="(method, methodIdx) in paymentMethods"
+                :key="method.name"
+                :value="method"
                 v-slot="{ checked = false, active = false }"
             >
                 <div
                     :class="[
-                        paymentIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
-                        paymentIdx === payments.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
+                        methodIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
+                        methodIdx === paymentMethods?.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
                         checked ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200',
                         'relative border p-4 flex cursor-pointer focus:outline-none',
                     ]"
@@ -50,19 +66,19 @@ const selected = ref(payments[0]);
                                 as="span"
                                 :class="[checked ? 'text-indigo-900' : 'text-gray-900', 'block text-sm font-medium']"
                             >
-                                {{ payment.name }}
+                                {{ method.name }}
                             </RadioGroupLabel>
                             <RadioGroupDescription
                                 as="span"
                                 :class="[checked ? 'text-indigo-700' : 'text-gray-500', 'block text-sm']"
                             >
-                                {{ payment.description }}
+                                {{ method.description }}
                             </RadioGroupDescription>
                         </div>
                     </div>
 
                     <RadioGroupDescription class="ml-6 pl-1 text-sm text-right self-center text-indigo-900 font-medium"
-                        >{{ payment.price }} Kč</RadioGroupDescription
+                        >{{ method.price }} Kč</RadioGroupDescription
                     >
                 </div>
             </RadioGroupOption>
