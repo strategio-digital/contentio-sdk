@@ -14,6 +14,8 @@ export const useGlobalStore = defineStore({
         ({
             currencyId: 1,
             countryId: 1,
+            delivery: undefined,
+            payment: undefined,
         } as MainStoreType),
     actions: {
         setCurrencyId(currencyId: MainStoreType['currencyId']) {

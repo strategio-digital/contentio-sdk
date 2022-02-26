@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ShoppingBagIcon } from '@heroicons/vue/outline';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
-import { useGlobalStore } from '../../../store/counter';
+import { useGlobalStore } from '../../../store';
 
 const store = useGlobalStore();
 

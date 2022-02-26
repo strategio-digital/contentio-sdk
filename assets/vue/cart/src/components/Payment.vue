@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from 'vue';
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
 import { getPaymentMethods, PaymentMethodsType } from '../../../../typescript/Api';
 import Loader from './Loader.vue';
-import { useGlobalStore } from '../../../store/counter';
+import { useGlobalStore } from '../../../store';
 
 const store = useGlobalStore();
 
@@ -20,9 +20,10 @@ onMounted(async () => {
     }
 });
 
-watch(selected, () => {
-    if (selected.value) {
-        store.setPayment(selected.value);
+watch(selected, (state) => {
+    if (state) {
+        console.log(state, 'selected payment');
+        store.setPayment(state);
     }
 });
 </script>
