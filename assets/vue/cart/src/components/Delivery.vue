@@ -1,29 +1,44 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
-import { getDeliveryMethods, DeliveryMethodsType, DeliveryMethodType } from '../../../../typescript/Api';
+import {
+    getDeliveryMethods,
+    DeliveryMethodsType,
+    DeliveryMethodType,
+    updateCartDeliveryMethod,
+} from '../../../../typescript/Api';
 import Loader from './Loader.vue';
 import { useGlobalStore } from '../../../store';
 
 const store = useGlobalStore();
 
-const deliveryMethods = ref<DeliveryMethodsType>();
+const deliveryMethods = ref<DeliveryMethodsType | undefined>(store.deliveryMethods);
 const selected = ref<DeliveryMethodType>();
 
 onMounted(async () => {
-    const methods = await getDeliveryMethods({
-        countryId: store.countryId,
-    });
-    console.log(methods, 'delivery');
-    if (methods.length) {
-        deliveryMethods.value = methods.filter((method) => method.active);
+    if (!deliveryMethods.value) {
+        const methods = await getDeliveryMethods({
+            countryId: store.countryId,
+        });
+        const activeMethods = methods.filter((method) => method.active);
+        deliveryMethods.value = activeMethods;
+        store.setDeliveryMethods(activeMethods);
+    }
+
+    if (store.cart?.deliveryMethod) {
+        selected.value = deliveryMethods.value.find((method) => method.id === store.cart?.deliveryMethod.id);
     }
 });
 
-watch(selected, (state) => {
-    if (state) {
-        console.log(state, 'selected delivery');
-        store.setDelivery(state);
+watch(selected, async (state) => {
+    if (state && store.cart?.guid) {
+        const cart = await updateCartDeliveryMethod({
+            cartGuid: store.cart?.guid,
+            deliveryMethodId: state.id,
+        });
+        if (cart) {
+            store.setCart(cart);
+        }
     }
 });
 </script>

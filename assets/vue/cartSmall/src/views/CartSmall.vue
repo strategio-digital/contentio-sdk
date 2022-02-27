@@ -36,7 +36,6 @@ watch(store, (state) => {
                 <span class="sr-only">položky v nákupním košíku</span>
             </PopoverButton>
             <transition
-                v-if="items.length > 0"
                 enter-active-class="transition ease-out duration-200"
                 enter-from-class="opacity-0"
                 enter-to-class="opacity-100"
@@ -49,11 +48,11 @@ watch(store, (state) => {
                 >
                     <h2 class="sr-only">Nákupní košík</h2>
 
-                    <form class="max-w-2xl mx-auto px-4">
+                    <form v-if="items.length > 0" class="max-w-2xl mx-auto px-4">
                         <ul role="list" class="divide-y divide-gray-200">
                             <li v-for="item in items" :key="item.id" class="py-6 flex items-center">
                                 <img
-                                    src=""
+                                    src="https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg"
                                     :alt="item.product.name"
                                     class="flex-none w-16 h-16 rounded-md border border-gray-200"
                                 />
@@ -72,6 +71,8 @@ watch(store, (state) => {
                             Objednat zboží
                         </a>
                     </form>
+
+                    <div v-else class="text-base p-6 pb-0 text-center">V košíku nemáte žádné položky.</div>
                 </PopoverPanel>
             </transition>
         </div>

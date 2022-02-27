@@ -1,29 +1,55 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
-import { getPaymentMethods, PaymentMethodsType } from '../../../../typescript/Api';
+import {
+    getPaymentMethods,
+    PaymentMethodType,
+    PaymentMethodsType,
+    updateCartPaymentMethod,
+} from '../../../../typescript/Api';
 import Loader from './Loader.vue';
 import { useGlobalStore } from '../../../store';
 
 const store = useGlobalStore();
 
-const paymentMethods = ref<PaymentMethodsType>();
-const selected = ref();
+const paymentMethods = ref<PaymentMethodsType | undefined>(store.paymentMethods);
+const selected = ref<PaymentMethodType>();
+const excludedPaymentMethods = ref<PaymentMethodsType>();
 
 onMounted(async () => {
-    const methods = await getPaymentMethods({
-        currencyId: store.currencyId,
-    });
-    console.log(methods, 'payment');
-    if (methods) {
-        paymentMethods.value = methods.filter((method) => method.active);
+    if (!paymentMethods.value) {
+        const methods = await getPaymentMethods({
+            currencyId: store.currencyId,
+        });
+        const activeMethods = methods.filter((method) => method.active);
+        paymentMethods.value = activeMethods;
+        store.setPaymentMethods(activeMethods);
+    }
+
+    if (store.cart?.paymentMethod) {
+        selected.value = paymentMethods.value.find((method) => method.id === store.cart?.paymentMethod.id);
     }
 });
 
-watch(selected, (state) => {
-    if (state) {
-        console.log(state, 'selected payment');
-        store.setPayment(state);
+watch(selected, async (state) => {
+    if (state && store.cart?.guid) {
+        const cart = await updateCartPaymentMethod({
+            cartGuid: store.cart?.guid,
+            paymentMethodId: state.id,
+        });
+        if (cart) {
+            store.setCart(cart);
+        }
+    }
+});
+
+watch(store, async (state) => {
+    if (state && state.cart?.deliveryMethod) {
+        excludedPaymentMethods.value = store.deliveryMethods?.find(
+            (item) => item.id === store.cart?.deliveryMethod.id,
+        )?.excludedPaymentMethods;
+
+        // TODO unselect excluded payment method if selected..
     }
 });
 </script>
@@ -38,16 +64,18 @@ watch(selected, (state) => {
             <RadioGroupOption
                 as="template"
                 v-for="(method, methodIdx) in paymentMethods"
+                v-slot="{ checked = false, active = false, disabled = false }"
                 :key="method.name"
                 :value="method"
-                v-slot="{ checked = false, active = false }"
+                :disabled="Boolean(excludedPaymentMethods.value?.find((item) => item.id === method.id))"
             >
                 <div
                     :class="[
                         methodIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
                         methodIdx === paymentMethods?.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
                         checked ? 'bg-indigo-50 border-indigo-200 z-10' : 'border-gray-200',
-                        'relative border p-4 flex cursor-pointer focus:outline-none',
+                        'relative border p-4 flex  focus:outline-none',
+                        disabled ? 'cursor-not-allowed' : 'cursor-pointer',
                     ]"
                 >
                     <div class="flex flex-1 items-center text-sm">
@@ -65,20 +93,32 @@ watch(selected, (state) => {
                         <div class="ml-5 flex flex-1 flex-col">
                             <RadioGroupLabel
                                 as="span"
-                                :class="[checked ? 'text-indigo-900' : 'text-gray-900', 'block text-sm font-medium']"
+                                :class="[
+                                    'block text-sm font-medium',
+                                    checked ? 'text-indigo-900' : 'text-gray-900',
+                                    disabled ? 'text-gray-300' : '',
+                                ]"
                             >
                                 {{ method.name }}
                             </RadioGroupLabel>
                             <RadioGroupDescription
                                 as="span"
-                                :class="[checked ? 'text-indigo-700' : 'text-gray-500', 'block text-sm']"
+                                :class="[
+                                    'block text-sm',
+                                    checked ? 'text-indigo-700' : 'text-gray-500',
+                                    disabled ? 'text-gray-300' : '',
+                                ]"
                             >
                                 {{ method.description }}
                             </RadioGroupDescription>
                         </div>
                     </div>
 
-                    <RadioGroupDescription class="ml-6 pl-1 text-sm text-right self-center text-indigo-900 font-medium"
+                    <RadioGroupDescription
+                        :class="[
+                            'ml-6 pl-1 text-sm text-right self-center text-indigo-900 font-medium',
+                            disabled ? 'text-gray-300' : '',
+                        ]"
                         >{{ method.price }} Kč</RadioGroupDescription
                     >
                 </div>

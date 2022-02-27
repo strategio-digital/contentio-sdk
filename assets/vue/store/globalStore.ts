@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import { CartType, DeliveryMethodType, PaymentMethodType } from '../../typescript/Api';
+import { CartType, DeliveryMethodsType, PaymentMethodsType } from '../../typescript/Api';
 
 type GlobalStoreType = {
     currencyId: number;
     countryId: number;
-    delivery?: DeliveryMethodType;
-    payment?: PaymentMethodType;
+    deliveryMethods?: DeliveryMethodsType;
+    paymentMethods?: PaymentMethodsType;
     cart?: CartType;
 };
 
@@ -15,8 +15,8 @@ export const useGlobalStore = defineStore({
         ({
             currencyId: 1,
             countryId: 1,
-            delivery: undefined,
-            payment: undefined,
+            deliveryMethods: undefined,
+            paymentMethods: undefined,
             cart: undefined,
         } as GlobalStoreType),
     actions: {
@@ -26,11 +26,11 @@ export const useGlobalStore = defineStore({
         setCountryId(countryId: GlobalStoreType['countryId']) {
             this.countryId = countryId;
         },
-        setDelivery(delivery: DeliveryMethodType) {
-            this.delivery = delivery;
+        setDeliveryMethods(delivery: DeliveryMethodsType) {
+            this.deliveryMethods = delivery;
         },
-        setPayment(payment: PaymentMethodType) {
-            this.payment = payment;
+        setPaymentMethods(payment: PaymentMethodsType) {
+            this.paymentMethods = payment;
         },
         setCart(cart: CartType) {
             this.cart = cart;

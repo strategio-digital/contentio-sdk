@@ -15,6 +15,7 @@ export type CartType = {
         quantity: number;
     }[];
     createdAt: CreatedATType;
+    deliveryMethod: DeliveryMethodType;
     email: string;
     firstName: string;
     guid: string;
@@ -73,15 +74,7 @@ export type DeliveryMethodType = {
         };
     };
     description: string;
-    excludedPaymentMethods: {
-        active: boolean;
-        description: string;
-        id: number;
-        name: string;
-        params: unknown;
-        price: number;
-        type: string;
-    }[];
+    excludedPaymentMethods: PaymentMethodsType;
     id: number;
     name: string;
     params: unknown;

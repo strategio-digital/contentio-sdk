@@ -7,7 +7,7 @@ export type PaymentMethodsParamsType = {
 
 export const getPaymentMethods = async (params: PaymentMethodsParamsType): Promise<PaymentMethodsType> => {
     try {
-        const { data } = await Axios.post('cart/payment-methods', params);
+        const { data } = await Axios.post('cart/get-payment-methods', params);
         return data.items;
     } catch (err: any) {
         console.error(err);
