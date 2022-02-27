@@ -5,10 +5,7 @@ import router from './src/router/router';
 
 export default (store: Pinia) => {
     const app = createApp(App);
-
     app.use(store);
-
     app.use(router());
-
     app.mount('#vueCart');
 };

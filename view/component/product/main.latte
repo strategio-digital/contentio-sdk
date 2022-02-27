@@ -6,6 +6,8 @@
 {varType ContentioSdk\Component\AssetLoader $assets}
 {varType ContentioSdk\Controller\ProductController $controller}
 
+{var $productId = 1}
+
 <div class="bg-white">
     <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
 
@@ -93,8 +95,8 @@
                     <p class="ml-2 text-sm text-gray-500 font-bold">Skladem více jak 5 ks</p>
                 </div>
 
-                <div class="mt-8">
-                    <button class="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
+                <div data-vue-add-to-cart data-id="{$productId}" class="mt-8">
+                    <button @click="handleClick" class="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
                         Přidat do košíku
                     </button>
                 </div>

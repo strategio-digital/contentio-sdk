@@ -11,12 +11,14 @@
         <h2 class="sr-only">Produkty</h2>
         <div class="border-gray-200 grid grid-cols-2 sm:mx-0 md:grid-cols-3 gap-6">
 
-            {foreach ['', '', '', '', '', ''] as $product}
+            {foreach ['1', '2', '3', '4', '5', '6'] as $productId}
                 <div class="group relative">
                     <div class="rounded-lg overflow-hidden bg-gray-200 aspect-w-1 aspect-h-1 group-hover:opacity-75">
-                        <img src="https://tailwindui.com/img/ecommerce-images/category-page-05-image-card-01.jpg" alt="TODO" class="w-full h-full object-center object-cover">
+                        <a href="{$controller->link('product_detail', ['slug' => 'nazev-produktu'])}">
+                            <img src="https://tailwindui.com/img/ecommerce-images/category-page-05-image-card-01.jpg" alt="TODO" class="w-full h-full object-center object-cover">
+                        </a>
                     </div>
-                    <div class="pt-10 pb-4 text-center">
+                    <div class="pt-6 pb-4 text-center">
                         <h3 class="text-sm font-medium text-gray-900">
                             <a href="{$controller->link('product_detail', ['slug' => 'nazev-produktu'])}">
                                 <span aria-hidden="true" class="absolute inset-0"></span>
@@ -53,7 +55,13 @@
                             </div>
                             <p class="mt-1 text-sm text-gray-500">38 hodnocení</p>
                         </div>
-                        <p class="mt-4 text-base font-medium text-gray-900">3 000 CZK</p>
+                        <p class="mt-4 mb-4 text-base font-medium text-gray-900">3 000 CZK</p>
+
+                        <div data-vue-add-to-cart data-id="{$productId}" class="flex justify-center">
+                            <button @click="handleClick" class="bg-indigo-600 border border-transparent rounded-md py-1 px-5 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
+                                Přidat do košíku
+                            </button>
+                        </div>
                     </div>
                 </div>
             {/foreach}
