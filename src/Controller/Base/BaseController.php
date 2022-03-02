@@ -33,11 +33,11 @@ abstract class BaseController implements IController
     protected \stdClass $template;
     
     public function __construct(
-        private Engine      $latte,
-        private ApiDebugger $apiDebugger,
-        protected Response  $response,
-        public Request      $request,
-        AssetLoader         $assetLoader
+        protected Engine      $latte,
+        protected ApiDebugger $apiDebugger,
+        protected Response    $response,
+        protected AssetLoader $assetLoader,
+        public Request        $request,
     )
     {
         $this->userToken = (string)$this->request->cookies->get(self::UBT) ?: null;
