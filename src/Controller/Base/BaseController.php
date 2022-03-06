@@ -40,31 +40,30 @@ abstract class BaseController implements IController
         public Request        $request,
     )
     {
+    }
+    
+    public function startup(): void
+    {
         $this->userToken = (string)$this->request->cookies->get(self::UBT) ?: null;
-        
+    
         $apiHeaders = [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
             'Api-Access-Token' => $_ENV['API_ACCESS_TOKEN'],
         ];
-        
+    
         if ($this->userToken()) {
             $apiHeaders = array_merge($apiHeaders, ['Authorization' => 'Bearer ' . $this->userToken()]);
             if (!$this->userLogged()) {
                 $this->userLogout();
             }
         }
-        
+    
         $this->client = new Client(['base_uri' => $_ENV['API_URL_PHP'], 'headers' => $apiHeaders]);
-        
+    
         $this->template = new \stdClass;
-        $this->template->assets = $assetLoader;
+        $this->template->assets = $this->assetLoader;
         $this->template->controller = $this;
-    }
-    
-    public function startup(): void
-    {
-    
     }
     
     public function link(string $url): string
