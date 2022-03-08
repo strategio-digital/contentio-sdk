@@ -26,10 +26,9 @@ module.exports = (mix, images = true) => {
 
     // Mix settings
     mix.options({publicPath: 'www/temp/static'})
-    mix.browserSync({proxy: 'localhost:3000', port: 3001});
+    //mix.browserSync({proxy: 'localhost:3000', port: 3001});
     mix.disableNotifications();
 
-    //
     if (mix.inProduction()) {
         mix.version();
     }
