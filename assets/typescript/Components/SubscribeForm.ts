@@ -3,10 +3,10 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  */
 
-import {Field} from "../utils/FormValidator/types";
+import {Field} from "../Utils/FormValidator/types";
 import {trackSubscribe} from "./Measurement";
 import Axios from "../Plugins/Axios";
-import {IFormValidator} from "../utils/FormValidator";
+import {IFormValidator} from "../Utils/FormValidator";
 
 type SubscribeFormValues = {
     email: string,

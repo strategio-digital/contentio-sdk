@@ -6,7 +6,7 @@
 import SubscribeForm from "./Components/SubscribeForm";
 import Alpine from "./Plugins/Alpine";
 import Measurement from "./Components/Measurement";
-import FormValidator from "./utils/FormValidator";
+import FormValidator from "./Utils/FormValidator";
 
 (() => {
     // Alpine
