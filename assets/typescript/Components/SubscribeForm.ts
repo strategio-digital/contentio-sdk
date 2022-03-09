@@ -24,7 +24,7 @@ export default (formValidator:IFormValidator, form: HTMLFormElement | null, rule
             formValidator.clearAlerts(form);
 
             try {
-                await Axios.post('newsletter/subscribe', {params});
+                await Axios.post('newsletter/subscribe', params);
                 formValidator.addAlert(form, false, 'Skvěle, právě jste se přihlásili k odběru.');
                 trackSubscribe();
                 form.reset();
