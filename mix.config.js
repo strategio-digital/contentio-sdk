@@ -36,8 +36,8 @@ module.exports = (mix, images = true) => {
     // App TS + Vue TS
     mix.ts('assets/typescript/App.ts', 'js').sourceMaps(false, 'source-map')//.vue();
 
-    // Css
-    mix.postCss('assets/css/App.css', "css", [require("tailwindcss")]);
+    // Scss & Css
+    mix.sass('assets/scss/App.scss', 'www/temp/static/css').postCss('assets/css/App.css', "css", [require("tailwindcss")]);
 
     // Images
     mix.copyDirectory('assets/img/**/*', 'www/temp/static/img');

@@ -21,7 +21,7 @@ export default (setup?: SetupOptions): IFormValidator => {
         alertErrorBg: 'flex items-center text-white text-bold text-sm p-3 rounded bg-rose-700',
         alertIcon: '<svg class="mr-2 inline-block max-w-[40px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>',
         hiddenClass: 'hidden',
-        antispamMessage: 'Vyčkejte 15 vteřin a odešlete zprávu znovu. Tímto se bráníme proti spamu, děkujeme za pochopení.',
+        antispamMessage: 'Vyčkejte 15 vteřin a odešlete požadavek znovu. Tímto se bráníme proti spamu, děkujeme za pochopení.',
         antispamDelay: 15 * 1000
     }
 
