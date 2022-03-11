@@ -157,7 +157,7 @@ abstract class BaseController implements IController
         return $result;
     }
     
-    public function renderError(ResponseInterface $response, string $message): void
+    public function renderError(ResponseInterface $response, string $message): never
     {
         $this->template->error = [
             'code' => $response->getStatusCode(),
@@ -167,6 +167,8 @@ abstract class BaseController implements IController
         $html = $this->latte->renderToString(Path::viewDir() . '/controller/error.latte', $this->template);
         $this->response->setStatusCode($response->getStatusCode());
         $this->response->setContent($html);
+        $this->response->send();
+        exit;
     }
     
     /**
