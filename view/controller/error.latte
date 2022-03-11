@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\ErrorController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\ErrorController $controller}
 {varType array $_ENV}
 {varType array $error}
 
@@ -32,7 +32,7 @@
                         {/if}
 
                         <div class="mt-6">
-                            <a href="/" class="text-base font-medium text-indigo-600 hover:text-indigo-500"><span aria-hidden="true">← </span> Zpět na úvod</a>
+                            <a href="{$controller->link('home')}" class="text-base font-medium text-indigo-600 hover:text-indigo-500"><span aria-hidden="true">← </span> Zpět na úvod</a>
                         </div>
                     </div>
                 </div>

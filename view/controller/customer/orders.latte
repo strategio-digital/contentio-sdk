@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\CustomerController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\CustomerController $controller}
 
 {extends './../../@layout.latte'}
 
@@ -14,7 +14,7 @@
     {include parent}
 {/block}
 
-{block html}bg-white{/block}
+{block html}h-full bg-white{/block}
 
 {block content}
     <!-- This example requires Tailwind CSS v2.0+ -->
@@ -95,7 +95,7 @@
                                     3ks | 2 100 CZK
                                 </td>
                                 <td class="py-6 font-medium text-right whitespace-nowrap">
-                                    <a href="{$controller->link('/produkty/nazev-produktu')}" class="text-indigo-600">Zobrazit<span class="hidden lg:inline"> produkt</span><span class="sr-only">, Machined Pen and Pencil Set</span></a>
+                                    <a href="{$controller->link('product_detail', ['slug' => 'nazev-produktu'])}" class="text-indigo-600">Zobrazit<span class="hidden lg:inline"> produkt</span><span class="sr-only">, Machined Pen and Pencil Set</span></a>
                                 </td>
                             </tr>
 

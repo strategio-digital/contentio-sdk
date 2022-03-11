@@ -3,11 +3,11 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\AbstractController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\Base\BaseController $controller}
 
 <!doctype html>
-<html lang="cs" class="h-full {block html}bg-white{/block}">
+<html lang="cs" class="{block html}h-full bg-white{/block}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="{$assets->get('/css/App.css')}">
     {/block}
 </head>
-<body class="h-full">
+<body class="{block body}h-full{/block}">
     {block top}
         {include './component/navbar.latte'}
     {/block}
@@ -39,9 +39,9 @@
         <script n:syntax="off">
             if (window.measurement.gtm_enabled === true) {
                 (function(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':
-                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                        j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                 })(window,document,'script','dataLayer', window.measurement.gtm_id);
             }
         </script>

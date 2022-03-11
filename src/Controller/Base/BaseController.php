@@ -18,6 +18,8 @@ use Latte\Engine;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class BaseController implements IController
 {
@@ -33,11 +35,12 @@ abstract class BaseController implements IController
     protected \stdClass $template;
     
     public function __construct(
-        protected Engine      $latte,
-        protected ApiDebugger $apiDebugger,
-        protected Response    $response,
-        protected AssetLoader $assetLoader,
-        public Request        $request,
+        protected Engine       $latte,
+        protected ApiDebugger  $apiDebugger,
+        protected Response     $response,
+        protected AssetLoader  $assetLoader,
+        protected UrlGenerator $urlGenerator,
+        public Request         $request,
     )
     {
     }
@@ -45,30 +48,36 @@ abstract class BaseController implements IController
     public function startup(): void
     {
         $this->userToken = (string)$this->request->cookies->get(self::UBT) ?: null;
-    
+        
         $apiHeaders = [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
             'Api-Access-Token' => $_ENV['API_ACCESS_TOKEN'],
         ];
-    
+        
         if ($this->userToken()) {
             $apiHeaders = array_merge($apiHeaders, ['Authorization' => 'Bearer ' . $this->userToken()]);
             if (!$this->userLogged()) {
                 $this->userLogout();
             }
         }
-    
+        
         $this->client = new Client(['base_uri' => $_ENV['API_URL_PHP'], 'headers' => $apiHeaders]);
-    
+        
         $this->template = new \stdClass;
         $this->template->assets = $this->assetLoader;
         $this->template->controller = $this;
     }
     
-    public function link(string $url): string
+    /**
+     * @param string $name
+     * @param array <string, string|int> $params
+     * @param int $path
+     * @return string
+     */
+    public function link(string $name, array $params = [], int $path = UrlGeneratorInterface::ABSOLUTE_PATH): string
     {
-        return $url;
+        return $this->urlGenerator->generate($name, $params, $path);
     }
     
     public function userLogged(): bool

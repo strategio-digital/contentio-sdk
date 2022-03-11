@@ -58,4 +58,9 @@ abstract class BaseRouter
         
         return $controllerData;
     }
+    
+    public function getRouteCollection(): RouteCollection
+    {
+        return $this->routes;
+    }
 }

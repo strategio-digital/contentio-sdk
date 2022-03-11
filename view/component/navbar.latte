@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\AbstractController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\Base\BaseController $controller}
 
 <div class="bg-white" x-data="{ mobileMenuOpen: false }" @keydown.window.escape="mobileMenuOpen = false">
     <div x-show="mobileMenuOpen" class="fixed inset-0 flex z-40 lg:hidden" x-ref="dialog" aria-modal="true" style="display: none;">
@@ -38,7 +38,7 @@
             {foreach ['Kategorie 1', 'Kategorie 2'] as $item}
                 <div class="border-t border-gray-200 py-6 px-4 space-y-6">
                     <div class="flow-root">
-                        <a href="{$controller->link('/kategorie/nazev-kategorie')}" class="-m-2 p-2 block font-medium text-gray-900">{$item}</a>
+                        <a href="{$controller->link('category', ['slug' => 'nazev-kategorie'])}" class="-m-2 p-2 block font-medium text-gray-900">{$item}</a>
                         <ul role="list" aria-labelledby="mobile-featured-heading-0" class="mt-6 space-y-6">
                             {foreach ['', '', '', '', '', '', '', '', '', ''] as $sub}
                                 <li class="flex">
@@ -83,7 +83,7 @@
                     <div class="h-16 flex items-center justify-between">
                         <!-- Logo (lg+) -->
                         <div class="hidden lg:flex lg:items-center">
-                            <a href="{$controller->link('/')}">
+                            <a href="{$controller->link('home')}">
                                 <span class="sr-only">Contentio</span>
                                 <img class="h-8 w-auto" src="{$assets->get('/img/logo.svg')}" alt="Contentio.shop">
                             </a>
@@ -94,7 +94,7 @@
                         {include './navbar/mobile-menu.latte'}
 
                         <!-- Logo (lg-) -->
-                        <a href="{$controller->link('/')}" class="lg:hidden">
+                        <a href="{$controller->link('home')}" class="lg:hidden">
                             <span class="sr-only">Contentio</span>
                             <img src="{$assets->get('/img/logo.svg')}" alt="Contentio.shop" class="h-8 w-auto">
                         </a>

@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\ProductController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\ProductController $controller}
 
 <div class="bg-white">
     <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
@@ -15,7 +15,7 @@
                 <ol role="list" class="flex items-center space-x-2">
                     <li>
                         <div class="flex items-center text-sm">
-                            <a href="{$controller->link('/kategorie/nazev-kategorie')}" class="font-medium text-gray-500 hover:text-gray-900">
+                            <a href="{$controller->link('category', ['slug' => 'nazev-kategorie'])}" class="font-medium text-gray-500 hover:text-gray-900">
                                 Název kategorie
                             </a>
 
@@ -27,7 +27,7 @@
 
                     <li>
                         <div class="flex items-center text-sm">
-                            <a href="{$controller->link('/kategorie/nazev-kategorie')}" class="font-medium text-gray-500 hover:text-gray-900">
+                            <a href="{$controller->link('category', ['slug' => 'nazev-kategorie'])}" class="font-medium text-gray-500 hover:text-gray-900">
                                 Název pod-kategorie
                             </a>
                         </div>

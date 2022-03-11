@@ -7,6 +7,7 @@ services:
         factory: Symfony\Component\Routing\RequestContext
         setup:
             - fromRequest(@request)
+    urlGenerator: Symfony\Component\Routing\Generator\UrlGenerator(@routerFactory::getRouteCollection(), @requestContext)
 
     - Latte\Engine
     - ContentioSdk\App

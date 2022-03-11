@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\CustomerController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\CustomerController $controller}
 
 {extends './../../@layout.latte'}
 
@@ -16,7 +16,7 @@
 
 {block top}{/block}
 {block bottom}{/block}
-{block html}bg-white{/block}
+{block html}h-full bg-white{/block}
 
 {block content}
     <div class="min-h-full flex">
@@ -66,7 +66,7 @@
                             </div>
 
                             <div>
-                                <a href="{$controller->link('/zakaznik/prihlaseni')}" class="text-base font-medium text-gray-400 hover:text-gray-500"><span aria-hidden="true">← </span>Zpět na přihlášení</a>
+                                <a href="{$controller->link('customer_login')}" class="text-base font-medium text-gray-400 hover:text-gray-500"><span aria-hidden="true">← </span>Zpět na přihlášení</a>
                             </div>
                         </form>
                     </div>

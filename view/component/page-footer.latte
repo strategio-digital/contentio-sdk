@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\AbstractController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\Base\BaseController $controller}
 
 <footer class="bg-gray-800" aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
@@ -46,25 +46,25 @@
                 </h3>
                 <ul role="list" class="mt-4 space-y-3">
                     <li>
-                        <a href="{$controller->link('/kontakty')}" class="text-base text-gray-300 hover:text-white">
+                        <a href="{$controller->link('contact')}" class="text-base text-gray-300 hover:text-white">
                             Kontakty
                         </a>
                     </li>
 
                     <li>
-                        <a href="{$controller->link('/clanky/gdpr-cookies')}" class="text-base text-gray-300 hover:text-white">
+                        <a href="{$controller->link('article_detail', ['slug' => 'gdpr-cookies'])}" class="text-base text-gray-300 hover:text-white">
                             Cookies & GDPR
                         </a>
                     </li>
 
                     <li>
-                        <a href="{$controller->link('/clanky/obchodni-podminky')}" class="text-base text-gray-300 hover:text-white">
+                        <a href="{$controller->link('article_detail', ['slug' => 'obchodni-podminky'])}" class="text-base text-gray-300 hover:text-white">
                             Obchodní podmínky
                         </a>
                     </li>
 
                     <li>
-                        <a href="{$controller->link('/clanky/reklamacni-rad')}" class="text-base text-gray-300 hover:text-white">
+                        <a href="{$controller->link('article_detail', ['slug' => 'reklamacni-rad'])}" class="text-base text-gray-300 hover:text-white">
                             Reklamační řád
                         </a>
                     </li>

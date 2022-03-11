@@ -3,12 +3,12 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\CategoryController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\CategoryController $controller}
 
 <div role="list" class="pt-8 pb-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
     {foreach ['', '', '', '', '', '', ''] as $sub}
-        <a href="{$controller->link('/kategorie/nazev-kategorie')}" class="col-span-1 flex shadow-sm rounded-md border-gray-200 border">
+        <a href="{$controller->link('category', ['slug' => 'nazev-kategorie'])}" class="col-span-1 flex shadow-sm rounded-md border-gray-200 border">
             <img class="rounded-l-md w-10" src="https://tailwindui.com/img/ecommerce-images/home-page-02-product-01.jpg" alt="">
             <div class="flex-1 flex items-center justify-between bg-white rounded-r-md text-gray-500">
                 <div class="flex-1 px-4 py-1 text-sm">
