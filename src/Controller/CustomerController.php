@@ -45,8 +45,7 @@ class CustomerController extends BaseController
     public function orders(): void
     {
         if (!$this->userLogged()) {
-            
-            $this->redirect($this->link('customer_login') . '/?logout=true');
+            $this->redirect($this->link('customer_login') . '?logout=true');
         }
     }
 }

@@ -94,7 +94,7 @@ abstract class BaseController implements IController
     protected function userLogout(): never
     {
         $this->response->headers->clearCookie(self::UBT);
-        $this->redirect('/?logout=true');
+        $this->redirect($this->link('home') . '?logout=true');
     }
     
     protected function redirect(string $url, int $status = Response::HTTP_FOUND): never
