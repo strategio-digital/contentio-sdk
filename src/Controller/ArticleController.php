@@ -21,7 +21,7 @@ class ArticleController extends BaseController
     #[Template(path: __DIR__ . '/../../view/controller/article.latte')]
     public function index(string $slug): void
     {
-        $this->addRequest('article', 'GET', "article/show-one", [
+        $this->addRequest('article', 'POST', "article/show-one", [
             'json' => [
                 'slug' => $slug,
                 'suppressLabels' => true,

@@ -4,10 +4,9 @@
  */
 
 import SubscribeForm from "./Components/SubscribeForm";
-import SpamProtection from "./Components/SpamProtection";
-import ContactForm from "./Components/ContactForm";
 import Alpine from "./Plugins/Alpine";
 import Measurement from "./Components/Measurement";
+import FormValidator from "./Utils/FormValidator";
 
 (() => {
     // Alpine
@@ -16,8 +15,9 @@ import Measurement from "./Components/Measurement";
     // GTM
     Measurement();
 
-    // Forms
-    SpamProtection();
-    SubscribeForm();
-    ContactForm();
+    // Validator
+    const formValidator = FormValidator();
+
+    // Subscribe Form
+    SubscribeForm(formValidator, document.getElementById('subscribeForm') as HTMLFormElement | null, []);
 })();

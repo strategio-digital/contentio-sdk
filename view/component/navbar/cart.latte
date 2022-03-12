@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\AbstractController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\Base\BaseController $controller}
 
 <!-- Cart -->
 <div class="flow-root text-sm lg:relative" x-data="{ open: false, touch: false }" @mouseenter="open = true" @mouseleave="open = touch = false;">
@@ -32,7 +32,7 @@
                         <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="flex-none w-16 h-16 rounded-md border border-gray-200">
                         <div class="ml-4 flex-auto">
                             <h3 class="font-medium text-gray-900">
-                                <a href="{$controller->link('/produkt/nazev-produktu')}">Throwback Hip Bag</a>
+                                <a href="{$controller->link('product_detail', ['slug' => 'nazev-produktu'])}">Throwback Hip Bag</a>
                             </h3>
                             <p class="text-gray-500">Salmon</p>
                         </div>
@@ -51,12 +51,12 @@
                     <!-- More products... -->
                 </ul>
 
-                <a href="{$controller->link('/kosik')}" class="inline-block w-full text-center bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
+                <a href="{*$controller->link('/kosik')*}" class="inline-block w-full text-center bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">
                     Objednat zboží
                 </a>
 
                 <p class="mt-6 text-center">
-                    <a href="{$controller->link('/kosik')}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Prohlédnout košík</a>
+                    <a href="{*$controller->link('/kosik')*}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Prohlédnout košík</a>
                 </p>
             </form>
         </div>

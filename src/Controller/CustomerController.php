@@ -21,7 +21,7 @@ class CustomerController extends BaseController
     public function login(): void
     {
         if ($this->userLogged()) {
-            $this->redirect('/zakaznik/objednavky');
+            $this->redirect($this->link('customer_orders'));
         }
     }
     
@@ -29,7 +29,7 @@ class CustomerController extends BaseController
     public function register(): void
     {
         if ($this->userLogged()) {
-            $this->redirect('/zakaznik/objednavky');
+            $this->redirect($this->link('customer_orders'));
         }
     }
     
@@ -37,7 +37,7 @@ class CustomerController extends BaseController
     public function passwordRecovery(): void
     {
         if ($this->userLogged()) {
-            $this->redirect('/zakaznik/objednavky');
+            $this->redirect($this->link('customer_orders'));
         }
     }
     
@@ -45,7 +45,7 @@ class CustomerController extends BaseController
     public function orders(): void
     {
         if (!$this->userLogged()) {
-            $this->redirect('/zakaznik/prihlaseni?logout=true');
+            $this->redirect($this->link('customer_login') . '?logout=true');
         }
     }
 }

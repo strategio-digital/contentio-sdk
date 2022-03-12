@@ -3,14 +3,14 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\HomeController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\HomeController $controller}
 
 <section class="bg-white">
     <div class="py-16 sm:py-24 lg:max-w-7xl lg:mx-auto lg:px-8">
         <div class="px-4 flex items-center justify-between sm:px-6 lg:px-0">
             <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Nejprodávanější produkty</h2>
-            <a href="{$controller->link('/produkty')}" class="hidden sm:block text-sm font-semibold text-indigo-600 hover:text-indigo-500">Zobrazit vše<span aria-hidden="true"> &rarr;</span></a>
+            <a href="{$controller->link('category', ['slug' => 'nazev-kategorie'])}" class="hidden sm:block text-sm font-semibold text-indigo-600 hover:text-indigo-500">Zobrazit vše<span aria-hidden="true"> &rarr;</span></a>
         </div>
 
         <div class="mt-8 relative">
@@ -23,7 +23,7 @@
                             </div>
                             <div class="pt-10 pb-4 text-center">
                                 <h3 class="text-sm font-medium text-gray-900">
-                                    <a href="{$controller->link('/produkty/nazev-produktu')}">
+                                    <a href="{$controller->link('product_detail', ['slug' => 'nazev-produktu'])}">
                                         <span aria-hidden="true" class="absolute inset-0"></span>
                                         Název produktu
                                     </a>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="mt-12 flex px-4 sm:hidden">
-            <a href="{$controller->link('/produkty')}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500">Zobrazit vše<span aria-hidden="true"> &rarr;</span></a>
+            <a href="{$controller->link('product_detail', ['slug' => 'nazev-produktu'])}" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500">Zobrazit vše<span aria-hidden="true"> &rarr;</span></a>
         </div>
     </div>
 </section>

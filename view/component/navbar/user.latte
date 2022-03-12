@@ -3,8 +3,8 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType Strategio\Component\AssetLoader $assets}
-{varType Strategio\Controller\AbstractController $controller}
+{varType ContentioSdk\Component\AssetLoader $assets}
+{varType ContentioSdk\Controller\Base\BaseController $controller}
 
 <div class="relative inline-block text-left" x-data="{ open: false, touch: false }" @mouseenter="open = true" @mouseleave="open = touch = false;">
     <button class="flex items-center py-2 text-gray-400" :class="open ? 'text-gray-500' : ''" @click="if(!touch) open = !open; touch = false;" @touchstart="touch = true; open = !open">
@@ -37,26 +37,26 @@
                 </p>
             </div>
             <div class="py-1" role="none">
-                <a href="{$controller->link('/zakaznik/objednavky')}"
+                <a href="{$controller->link('customer_orders')}"
                    class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1">
                     Historie objednávek
                 </a>
             </div>
             <div class="py-1" role="none">
-                <a href="{$controller->link('/zakaznik/odhlaseni')}" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1">
+                <a href="{$controller->link('customer_logout')}" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1">
                     Odhlásit se
                 </a>
             </div>
         {else}
             <div class="py-1" role="none">
-                <a href="{$controller->link('/zakaznik/prihlaseni')}"
+                <a href="{$controller->link('customer_login')}"
                    class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1">
                     Přihlásit se
                 </a>
-                <a href="{$controller->link('/zakaznik/registrace')}" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1">
+                <a href="{$controller->link('customer_register')}" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1">
                     Nová registrace
                 </a>
-                <a href="{$controller->link('/zakaznik/zapomenute-heslo')}" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1">
+                <a href="{$controller->link('customer_recovery')}" class="text-gray-700 hover:bg-gray-100 hover:text-gray-900 block w-full text-left px-4 py-2 text-sm" role="menuitem" tabindex="-1">
                     Zapomenuté heslo
                 </a>
             </div>
