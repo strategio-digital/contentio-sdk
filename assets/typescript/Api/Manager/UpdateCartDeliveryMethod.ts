@@ -2,7 +2,10 @@ import Axios from '../../Plugins/Axios';
 import { CartType, DeliveryMethodType } from '../types';
 
 export type UpdateCartDeliveryMethodParamsType = {
-    cartGuid: string;
+    setup: {
+        currencyId: number;
+    };
+    guid: string;
     deliveryMethodId: DeliveryMethodType['id'];
 };
 

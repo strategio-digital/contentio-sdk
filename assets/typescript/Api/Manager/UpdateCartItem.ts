@@ -2,9 +2,12 @@ import Axios from '../../Plugins/Axios';
 import { CartType } from '../types';
 
 export type UpdateItemParamsType = {
+    setup: {
+        currencyId: number;
+    };
+    guid: string;
     productId: number;
     quantity: number;
-    cartGuid?: string;
 };
 
 export const updateCartItem = async (params: UpdateItemParamsType): Promise<CartType | null> => {

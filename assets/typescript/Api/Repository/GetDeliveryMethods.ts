@@ -2,7 +2,10 @@ import Axios from '../../Plugins/Axios';
 import { DeliveryMethodsType } from '../types';
 
 export type DeliveryMethodsParamsType = {
-    countryId: number;
+    setup: {
+        currencyId: number;
+    };
+    deliveryCountryId: number;
 };
 
 export const getDeliveryMethods = async (params: DeliveryMethodsParamsType): Promise<DeliveryMethodsType> => {

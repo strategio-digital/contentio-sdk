@@ -60,7 +60,7 @@ export type PaymentMethodsType = PaymentMethodType[];
 
 export type DeliveryMethodType = {
     active: boolean;
-    currency: {
+    currency?: {
         code: string;
         exchangeRatio: number;
         id: number;
@@ -74,12 +74,12 @@ export type DeliveryMethodType = {
         };
     };
     description: string;
-    excludedPaymentMethods: PaymentMethodsType;
+    excludedPaymentMethods?: PaymentMethodsType;
     id: number;
     name: string;
     params: unknown;
     price: number;
-    tax: {
+    tax?: {
         description: string;
         id: number;
         percentageZone: number;

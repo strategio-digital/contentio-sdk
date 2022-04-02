@@ -1,7 +1,7 @@
 import { Pinia } from 'pinia';
 import { createApp } from 'vue';
+import router from '../../vue/Cart/src/router/router';
 import App from './src/App.vue';
-import router from './src/router/router';
 
 export default (store: Pinia) => {
     const app = createApp(App);

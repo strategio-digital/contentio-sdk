@@ -11,7 +11,10 @@ const store = useGlobalStore();
 async function handleClick() {
     const quantity = store.cart?.cartItems.find((item) => item.product.id === props.productId)?.quantity;
     const cart = await updateCartItem({
-        cartGuid: store.cart?.guid,
+        setup: {
+            currencyId: 1,
+        },
+        guid: store.guid,
         productId: props.productId,
         quantity: quantity ? quantity + 1 : 1,
     });

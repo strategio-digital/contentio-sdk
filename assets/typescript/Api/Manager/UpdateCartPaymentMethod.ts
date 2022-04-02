@@ -2,7 +2,10 @@ import Axios from '../../Plugins/Axios';
 import { CartType, PaymentMethodType } from '../types';
 
 export type UpdateCartPaymentMethodParamsType = {
-    cartGuid: string;
+    setup: {
+        currencyId: number;
+    };
+    guid: string;
     paymentMethodId: PaymentMethodType['id'];
 };
 

@@ -7,7 +7,10 @@ const store = useGlobalStore();
 
 async function handleQuantityChange(quantity: number, productId: ProductType['id']) {
     const cart = await updateCartItem({
-        cartGuid: store.cart?.guid,
+        setup: {
+            currencyId: store.currencyId,
+        },
+        guid: store.guid,
         productId: productId,
         quantity: quantity,
     });

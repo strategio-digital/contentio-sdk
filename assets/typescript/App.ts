@@ -7,8 +7,8 @@ import FormValidator from "./Utils/FormValidator";
 import ContactForm from './Components/ContactForm';
 import Measurement from './Components/Measurement';
 import SubscribeForm from './Components/SubscribeForm';
-import VueJSInit from './Components/VueInit';
 import Alpine from './Plugins/Alpine';
+import Vue from './Plugins/Vue';
 
 (() => {
     // Alpine
@@ -28,5 +28,5 @@ import Alpine from './Plugins/Alpine';
     ContactForm();
 
     // VueJS init
-    VueJSInit();
+    Vue();
 })();

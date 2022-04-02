@@ -1,8 +1,6 @@
 import { createPinia } from 'pinia';
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
-import VueAddToCartBtn from '../../vue/addToCart';
-import VueCart from '../../vue/cart';
-import VueCartSmall from '../../vue/cartSmall';
+import PiniaPersistentPlugin from 'pinia-plugin-persistedstate';
+import VueCart from '../../vue/Cart';
 
 /**
  * Copyright (c) 2022 Strategio Digital s.r.o.
@@ -11,7 +9,7 @@ import VueCartSmall from '../../vue/cartSmall';
 
 export default () => {
     const pinia = createPinia();
-    pinia.use(piniaPluginPersistedstate);
+    pinia.use(PiniaPersistentPlugin);
 
     // Cart init
     if (document.getElementById('vueCart')) {
@@ -20,11 +18,11 @@ export default () => {
 
     // Cart small init
     if (document.getElementById('vueCartSmall')) {
-        VueCartSmall(pinia);
+        //VueCartSmall(pinia);
     }
 
     // Add to cart btn
     Array.from(document.querySelectorAll('[data-vue-add-to-cart]')).forEach((elm) => {
-        VueAddToCartBtn(pinia, elm as HTMLElement);
+        //VueAddToCartBtn(pinia, elm as HTMLElement);
     });
 };

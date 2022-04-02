@@ -16,6 +16,19 @@ const paymentMethods = ref<PaymentMethodsType | undefined>(store.paymentMethods)
 const selected = ref<PaymentMethodType>();
 const excludedPaymentMethods = ref<PaymentMethodsType>();
 
+const onPaymentMethodChange = async (newVal: PaymentMethodType) => {
+    const cart = await updateCartPaymentMethod({
+        setup: {
+            currencyId: store.currencyId,
+        },
+        guid: store.guid,
+        paymentMethodId: newVal.id,
+    });
+    if (cart) {
+        store.setCart(cart);
+    }
+};
+
 onMounted(async () => {
     if (!paymentMethods.value) {
         const methods = await getPaymentMethods({
@@ -31,31 +44,21 @@ onMounted(async () => {
     }
 });
 
-watch(selected, async (state) => {
-    if (state && store.cart?.guid) {
-        const cart = await updateCartPaymentMethod({
-            cartGuid: store.cart?.guid,
-            paymentMethodId: state.id,
-        });
-        if (cart) {
-            store.setCart(cart);
-        }
-    }
-});
-
 watch(store, async (state) => {
-    if (state && state.cart?.deliveryMethod) {
+    if (state && state.cart?.deliveryMethod && excludedPaymentMethods) {
         excludedPaymentMethods.value = store.deliveryMethods?.find(
             (item) => item.id === store.cart?.deliveryMethod.id,
         )?.excludedPaymentMethods;
 
-        // TODO unselect excluded payment method if selected..
+        if (excludedPaymentMethods.value?.some(({ id }) => id === selected.value?.id)) {
+            selected.value = undefined;
+        }
     }
 });
 </script>
 
 <template>
-    <RadioGroup v-model="selected" class="mb-5">
+    <RadioGroup v-model="selected" @update:modelValue="onPaymentMethodChange" class="mb-5">
         <RadioGroupLabel class="text-lg font-medium text-gray-900 block mb-4"> Zvolte platbu </RadioGroupLabel>
 
         <div class="relative bg-white rounded-md -space-y-px">
@@ -67,7 +70,7 @@ watch(store, async (state) => {
                 v-slot="{ checked = false, active = false, disabled = false }"
                 :key="method.name"
                 :value="method"
-                :disabled="Boolean(excludedPaymentMethods.value?.find((item) => item.id === method.id))"
+                :disabled="excludedPaymentMethods?.some(({ id }) => id === method.id)"
             >
                 <div
                     :class="[

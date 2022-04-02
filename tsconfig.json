@@ -6,6 +6,7 @@
     "strict": true,
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "experimentalDecorators": true
   }
 }

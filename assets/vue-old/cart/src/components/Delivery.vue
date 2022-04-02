@@ -18,7 +18,10 @@ const selected = ref<DeliveryMethodType>();
 onMounted(async () => {
     if (!deliveryMethods.value) {
         const methods = await getDeliveryMethods({
-            countryId: store.countryId,
+            setup: {
+                currencyId: store.currencyId,
+            },
+            deliveryCountryId: store.deliveryCountryId,
         });
         const activeMethods = methods.filter((method) => method.active);
         deliveryMethods.value = activeMethods;
@@ -31,9 +34,12 @@ onMounted(async () => {
 });
 
 watch(selected, async (state) => {
-    if (state && store.cart?.guid) {
+    if (state) {
         const cart = await updateCartDeliveryMethod({
-            cartGuid: store.cart?.guid,
+            setup: {
+                currencyId: store.currencyId,
+            },
+            guid: store.guid,
             deliveryMethodId: state.id,
         });
         if (cart) {

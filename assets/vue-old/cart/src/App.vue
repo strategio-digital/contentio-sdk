@@ -10,8 +10,11 @@ async function handleClick(productId: ProductType['id']) {
     const quantity = store.cart?.cartItems.find((item) => item.product.id === productId)?.quantity;
 
     const cart = await updateCartItem({
-        cartGuid: store.cart?.guid,
-        productId: 1,
+        setup: {
+            currencyId: store.currencyId,
+        },
+        guid: store.guid,
+        productId: productId,
         quantity: quantity ? quantity + 1 : 1,
     });
 
