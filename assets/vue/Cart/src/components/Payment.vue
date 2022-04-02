@@ -1,73 +1,56 @@
 <script lang="ts">
-import {RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption} from '@headlessui/vue';
-import {
-    getPaymentMethods,
-    PaymentMethodType,
-    PaymentMethodsType,
-    updateCartPaymentMethod,
-} from '../../../../typescript/Api';
+import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
+import { Options, Vue } from 'vue-property-decorator';
+import { getPaymentMethods, PaymentMethodsType, updateCartPaymentMethod } from '../../../../typescript/Api';
+import { store } from '../../../store';
 import Loader from './Loader.vue';
-import {useGlobalStore} from '../../../store';
-import {Options, Vue} from "vue-property-decorator";
 
-@Options({components: {Loader, RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption}})
+@Options({ components: { Loader, RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } })
 export default class Payment extends Vue {
-    private store = useGlobalStore();
-
-    private selected?: PaymentMethodType;
+    private store = store;
 
     async created(): Promise<void> {
-        if (!this.store.paymentMethods) {
+        if (!this.store.paymentMethods.length) {
             const methods = await getPaymentMethods({
                 currencyId: this.store.currencyId,
             });
             this.store.setPaymentMethods(methods);
         }
-
-        if (this.store.cart?.paymentMethod && this.store.paymentMethods) {
-            this.selected = this.store.paymentMethods.find((method) => method.id === this.store.cart?.paymentMethod.id);
-        }
     }
 
     private get excludedPaymentMethods(): PaymentMethodsType {
-        return this.store.cart?.deliveryMethod.excludedPaymentMethods ?? [];
+        return this.store.cart?.deliveryMethod?.excludedPaymentMethods ?? [];
     }
 
-    private async onPaymentMethodChange(method: PaymentMethodType): Promise<void> {
+    private async onPaymentMethodChange(methodId: number): Promise<void> {
         const cart = await updateCartPaymentMethod({
             setup: {
                 currencyId: this.store.currencyId,
             },
             guid: this.store.guid,
-            paymentMethodId: method.id,
+            paymentMethodId: methodId,
         });
 
         if (cart) {
             this.store.setCart(cart);
         }
-    };
-
-
+    }
 }
-
-// const paymentMethods = ref<PaymentMethodsType | undefined>(store.paymentMethods);
-// const excludedPaymentMethods = ref<PaymentMethodsType>();
-
 </script>
 
 <template>
-    <RadioGroup v-model="selected" @update:modelValue="onPaymentMethodChange" class="mb-5">
+    <RadioGroup :model-value="store.cart?.paymentMethod?.id" @update:modelValue="onPaymentMethodChange" class="mb-5">
         <RadioGroupLabel class="text-lg font-medium text-gray-900 block mb-4"> Zvolte platbu</RadioGroupLabel>
 
         <div class="relative bg-white rounded-md -space-y-px">
-            <Loader v-if="!store.paymentMethods"/>
+            <Loader v-if="!store.paymentMethods.length" />
 
             <RadioGroupOption
                 as="template"
                 v-for="(method, methodIdx) in store.paymentMethods"
                 v-slot="{ checked = false, active = false, disabled = false }"
                 :key="method.name"
-                :value="method"
+                :value="method.id"
                 :disabled="excludedPaymentMethods?.some(({ id }) => id === method.id)"
             >
                 <div
@@ -88,7 +71,7 @@ export default class Payment extends Vue {
                             ]"
                             aria-hidden="true"
                         >
-                            <span class="rounded-full bg-white w-1.5 h-1.5"/>
+                            <span class="rounded-full bg-white w-1.5 h-1.5" />
                         </span>
 
                         <div class="ml-5 flex flex-1 flex-col">
@@ -120,9 +103,8 @@ export default class Payment extends Vue {
                             'ml-6 pl-1 text-sm text-right self-center text-indigo-900 font-medium',
                             disabled ? 'text-gray-300' : '',
                         ]"
-                    >{{ method.price }} Kč
-                    </RadioGroupDescription
-                    >
+                        >{{ method.price }} Kč
+                    </RadioGroupDescription>
                 </div>
             </RadioGroupOption>
         </div>

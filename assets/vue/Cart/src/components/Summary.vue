@@ -1,13 +1,12 @@
 <script lang="ts">
-import {TrashIcon} from '@heroicons/vue/solid';
-import {useGlobalStore} from '../../../store';
-import {ProductType, updateCartItem} from '../../../../typescript/Api';
-import {Options, Vue} from "vue-class-component";
+import { TrashIcon } from '@heroicons/vue/solid';
+import { Options, Vue } from 'vue-class-component';
+import { ProductType, updateCartItem } from '../../../../typescript/Api';
+import { store } from '../../../store';
 
-@Options({components: {TrashIcon}})
+@Options({ components: { TrashIcon } })
 export default class Summary extends Vue {
-
-    private store = useGlobalStore();
+    private store = store;
 
     async handleQuantityChange(quantity: number, productId: ProductType['id']) {
         const cart = await updateCartItem({
@@ -66,7 +65,7 @@ export default class Summary extends Vue {
                                     @click="() => handleQuantityChange(0, item.product.id)"
                                 >
                                     <span class="sr-only">Remove</span>
-                                    <TrashIcon class="h-5 w-5" aria-hidden="true"/>
+                                    <TrashIcon class="h-5 w-5" aria-hidden="true" />
                                 </button>
                             </div>
                         </div>

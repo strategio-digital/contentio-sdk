@@ -1,9 +1,9 @@
 <script lang="ts">
-import {ShoppingBagIcon} from '@heroicons/vue/outline';
-import {Popover, PopoverButton, PopoverPanel} from '@headlessui/vue';
-import {useGlobalStore} from '../../../store';
-import {CartType} from '../../../../typescript/Api';
-import {Options, Vue} from "vue-property-decorator";
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
+import { ShoppingBagIcon } from '@heroicons/vue/outline';
+import { Options, Vue } from 'vue-property-decorator';
+import { CartType } from '../../../../typescript/Api';
+import { store } from '../../../store';
 
 @Options({
     components: {
@@ -11,10 +11,10 @@ import {Options, Vue} from "vue-property-decorator";
         PopoverButton,
         PopoverPanel,
         ShoppingBagIcon,
-    }
+    },
 })
 export default class CartSmall extends Vue {
-    private store = useGlobalStore();
+    private store = store;
 
     private get items(): CartType['cartItems'] {
         return this.store.cart?.cartItems ?? [];
@@ -25,7 +25,6 @@ export default class CartSmall extends Vue {
         return cartItems?.reduce((total, item) => total + item.quantity, 0) ?? 0;
     }
 }
-
 </script>
 
 <template>

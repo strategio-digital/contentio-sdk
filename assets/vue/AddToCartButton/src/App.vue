@@ -1,7 +1,7 @@
 <script lang="ts">
-import {updateCartItem} from '../../../typescript/Api';
-import {Options, Vue, Prop} from "vue-property-decorator";
-import {useGlobalStore} from "../../store";
+import { Options, Prop, Vue } from 'vue-property-decorator';
+import { updateCartItem } from '../../../typescript/Api';
+import { store } from '../../store';
 
 @Options({})
 export default class App extends Vue {
@@ -11,7 +11,7 @@ export default class App extends Vue {
     })
     private productId!: number;
 
-    private store = useGlobalStore();
+    private store = store;
 
     async handleClick() {
         const quantity = this.store.cart?.cartItems.find((item) => item.product.id === this.productId)?.quantity;

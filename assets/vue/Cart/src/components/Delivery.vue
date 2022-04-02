@@ -1,18 +1,16 @@
 <script lang="ts">
-import {RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption} from '@headlessui/vue';
-import {getDeliveryMethods, DeliveryMethodType, updateCartDeliveryMethod} from '../../../../typescript/Api';
+import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
+import { Options, Vue } from 'vue-class-component';
+import { getDeliveryMethods, updateCartDeliveryMethod } from '../../../../typescript/Api';
+import { store } from '../../../store';
 import Loader from './Loader.vue';
-import {useGlobalStore} from '../../../store';
-import {Options, Vue} from "vue-class-component";
 
-@Options({components: {Loader, RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption}})
+@Options({ components: { Loader, RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } })
 export default class Delivery extends Vue {
-    private store = useGlobalStore();
-
-    private selected?: DeliveryMethodType;
+    private store = store;
 
     async created(): Promise<void> {
-        if (!this.store.deliveryMethods) {
+        if (!this.store.deliveryMethods.length) {
             const methods = await getDeliveryMethods({
                 setup: {
                     currencyId: this.store.currencyId,
@@ -22,19 +20,15 @@ export default class Delivery extends Vue {
 
             this.store.setDeliveryMethods(methods);
         }
-
-        if (this.store.cart?.deliveryMethod && this.store.deliveryMethods) {
-            this.selected = this.store.deliveryMethods.find((method) => method.id === this.store.cart?.deliveryMethod.id);
-        }
     }
 
-    private async onDeliveryMethodChange(method: DeliveryMethodType): Promise<void> {
+    private async onDeliveryMethodChange(methodId: number): Promise<void> {
         const cart = await updateCartDeliveryMethod({
             setup: {
                 currencyId: this.store.currencyId,
             },
             guid: this.store.guid,
-            deliveryMethodId: method.id,
+            deliveryMethodId: methodId,
         });
 
         if (cart) {
@@ -45,18 +39,19 @@ export default class Delivery extends Vue {
 </script>
 
 <template>
-    <RadioGroup v-model="selected" @update:modelValue="onDeliveryMethodChange" class="mb-5">
+    {{ store.cart?.deliveryMethod?.name }}
+    <RadioGroup :model-value="store.cart?.deliveryMethod?.id" @update:modelValue="onDeliveryMethodChange" class="mb-5">
         <RadioGroupLabel class="text-lg font-medium text-gray-900 block mb-4"> Zvolte dopravu</RadioGroupLabel>
 
         <div class="relative bg-white rounded-md -space-y-px">
-            <Loader v-if="!store.deliveryMethods"/>
+            <Loader v-if="!store.deliveryMethods.length" />
 
             <RadioGroupOption
                 as="template"
                 v-for="(method, methodIdx) in store.deliveryMethods"
                 :key="method.name"
-                :value="method"
-                v-slot="{ checked = false, active = false }"
+                :value="method.id"
+                v-slot="{ checked, active }"
             >
                 <div
                     :class="[
@@ -75,7 +70,7 @@ export default class Delivery extends Vue {
                             ]"
                             aria-hidden="true"
                         >
-                            <span class="rounded-full bg-white w-1.5 h-1.5"/>
+                            <span class="rounded-full bg-white w-1.5 h-1.5" />
                         </span>
 
                         <div class="ml-5 flex flex-1 flex-col">
@@ -95,9 +90,8 @@ export default class Delivery extends Vue {
                     </div>
 
                     <RadioGroupDescription class="ml-6 pl-1 text-sm text-right self-center text-indigo-900 font-medium"
-                    >{{ method.price }} Kč
-                    </RadioGroupDescription
-                    >
+                        >{{ method.price }} Kč
+                    </RadioGroupDescription>
                 </div>
             </RadioGroupOption>
         </div>

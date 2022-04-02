@@ -15,20 +15,20 @@ export type CartType = {
         quantity: number;
     }[];
     createdAt: CreatedATType;
-    deliveryMethod: DeliveryMethodType;
+    deliveryMethod?: DeliveryMethodType;
     email: string;
     firstName: string;
     guid: string;
     id: number;
     lastName: string;
-    paymentMethod: PaymentMethodType;
+    paymentMethod?: PaymentMethodType;
     phone: string;
     updatedAt: UpdatedAtType;
 };
 
 export type PaymentMethodType = {
     active: boolean;
-    currency: {
+    currency?: {
         code: string;
         exchangeRatio: number;
         id: number;
@@ -46,7 +46,7 @@ export type PaymentMethodType = {
     name: string;
     params: unknown;
     price: number;
-    tax: {
+    tax?: {
         description: string;
         id: number;
         percentageZone: number;

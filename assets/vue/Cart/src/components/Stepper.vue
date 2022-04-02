@@ -5,8 +5,8 @@ import { Options, Vue } from 'vue-class-component';
 export default class Stepper extends Vue {
     private steps = [
         { id: '1', name: 'Nákupní košík', to: 'cart' },
-        // { id: '2', name: 'Doprava a platba', to: 'delivery-and-payment' },
-        // { id: '3', name: 'Dodací údaje', to: 'billing-info' },
+        { id: '2', name: 'Doprava a platba', to: 'delivery-and-payment' },
+        { id: '3', name: 'Dodací údaje', to: 'billing-info' },
     ];
 }
 </script>
