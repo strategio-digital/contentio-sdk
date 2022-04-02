@@ -16,6 +16,7 @@ use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\Utils;
 use Latte\Engine;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -23,7 +24,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class BaseController implements IController
 {
-    private const UBT = 'user_bearer_token';
+    private const USER_BEARER_TOKEN = 'user_bearer_token';
+    private const SHOP_DEFAULTS = 'shop_defaults';
     
     /** @var array<string, PromiseInterface> */
     private array $requestPool = [];
@@ -47,7 +49,7 @@ abstract class BaseController implements IController
     
     public function startup(): void
     {
-        $this->userToken = (string)$this->request->cookies->get(self::UBT) ?: null;
+        $this->userToken = (string)$this->request->cookies->get(self::USER_BEARER_TOKEN) ?: null;
         
         $apiHeaders = [
             'Content-Type' => 'application/json',
@@ -62,11 +64,34 @@ abstract class BaseController implements IController
             }
         }
         
-        $this->client = new Client(['base_uri' => $_ENV['API_URL_PHP'], 'headers' => $apiHeaders]);
+        $this->client = new Client(['base_uri' => $_ENV['API_URL_PHP'], 'headers' => $apiHeaders, 'timeout' => 10]);
         
         $this->template = new \stdClass;
         $this->template->assets = $this->assetLoader;
         $this->template->controller = $this;
+        
+        $this->loadShopDefaults();
+    }
+    
+    protected function loadShopDefaults(): void
+    {
+        $exists = $this->request->cookies->get(self::SHOP_DEFAULTS) ?: false;
+        
+        if (!$exists) {
+            $this->addRequest('shop_defaults', 'GET', 'setting/shop-defaults');
+            $response = $this->dispatchRequests('Shop defaults')['shop_defaults'];
+            
+            $data = json_decode($response->getBody()->getContents(), false);
+            $json = (string)json_encode([
+                'guid' => $data->newGuid,
+                'currencyId' => $data->defaultCurrency?->id,
+                'deliveryCountryId' => $data->defaultDeliveryCountry?->id
+            ]);
+            
+            $cookie = Cookie::create(self::SHOP_DEFAULTS, base64_encode($json), '+1hour', '/', null, null, false);
+            
+            $this->response->headers->setCookie($cookie);
+        }
     }
     
     /**
@@ -93,7 +118,7 @@ abstract class BaseController implements IController
     
     protected function userLogout(): never
     {
-        $this->response->headers->clearCookie(self::UBT);
+        $this->response->headers->clearCookie(self::USER_BEARER_TOKEN);
         $this->redirect($this->link('home') . '?logout=true');
     }
     
