@@ -3,24 +3,16 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  */
 
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: [
-    __dirname + "/assets/**/*.ts",
-    __dirname + "/assets/**/*.css",
-    __dirname + "/view/**/*.latte",
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
-      },
+    content: [__dirname + '/assets/**/*', __dirname + '/view/**/*.latte'],
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+            },
+        },
     },
-  },
-  plugins: [
-    require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/typography"),
-  ],
+    plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };

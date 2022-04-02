@@ -2,11 +2,14 @@
 import { TrashIcon } from '@heroicons/vue/solid';
 import { Options, Vue } from 'vue-class-component';
 import { ProductType, updateCartItem } from '../../../../typescript/Api';
+import { RouterFactory } from '../../../../typescript/Routes/RouterFactory';
 import { store } from '../../../store';
 
 @Options({ components: { TrashIcon } })
 export default class Summary extends Vue {
     private store = store;
+
+    private routes = RouterFactory;
 
     async handleQuantityChange(quantity: number, productId: ProductType['id']) {
         const cart = await updateCartItem({
@@ -47,7 +50,7 @@ export default class Summary extends Vue {
                             <div class="min-w-0 flex-1">
                                 <h4 class="text-sm">
                                     <a
-                                        href="/produkty/nazev-produktu"
+                                        :href="routes.product_detail(item.product.slug)"
                                         class="font-medium text-gray-700 hover:text-gray-800"
                                     >
                                         {{ item.product.name }}

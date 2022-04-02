@@ -3,12 +3,12 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  */
 
-import FormValidator from "./Utils/FormValidator";
 import ContactForm from './Components/ContactForm';
 import Measurement from './Components/Measurement';
 import SubscribeForm from './Components/SubscribeForm';
 import Alpine from './Plugins/Alpine';
 import Vue from './Plugins/Vue';
+import FormValidator from './Utils/FormValidator';
 
 (() => {
     // Alpine
@@ -24,8 +24,7 @@ import Vue from './Plugins/Vue';
     SubscribeForm(formValidator, document.getElementById('subscribeForm') as HTMLFormElement | null, []);
 
     // Contact Form
-    // TODO:
-    ContactForm();
+    ContactForm(formValidator, document.getElementById('contactForm') as HTMLFormElement | null, []);
 
     // VueJS init
     Vue();

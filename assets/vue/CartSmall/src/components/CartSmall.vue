@@ -3,6 +3,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import { ShoppingBagIcon } from '@heroicons/vue/outline';
 import { Options, Vue } from 'vue-property-decorator';
 import { CartType } from '../../../../typescript/Api';
+import { RouterFactory } from '../../../../typescript/Routes/RouterFactory';
 import { store } from '../../../store';
 
 @Options({
@@ -15,6 +16,8 @@ import { store } from '../../../store';
 })
 export default class CartSmall extends Vue {
     private store = store;
+
+    private routes = RouterFactory;
 
     private get items(): CartType['cartItems'] {
         return this.store.cart?.cartItems ?? [];
@@ -63,14 +66,14 @@ export default class CartSmall extends Vue {
                                 />
                                 <div class="ml-4 flex-auto">
                                     <h3 class="font-medium text-gray-900">
-                                        <a href="/produkty/nazev-produktu">{{ item.product.name }}</a>
+                                        <a :href="routes.product_detail(item.product.slug)">{{ item.product.name }}</a>
                                     </h3>
                                 </div>
                             </li>
                         </ul>
 
                         <a
-                            href="/kosik"
+                            :href="routes.cart"
                             class="inline-block w-full text-center bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                         >
                             Objednat zboží
