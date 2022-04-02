@@ -3,7 +3,7 @@ import { Options, Prop, Vue } from 'vue-property-decorator';
 import { updateCartItem } from '../../../typescript/Api';
 import { store } from '../../store';
 
-@Options({})
+@Options({ name: 'add-to-cart' })
 export default class App extends Vue {
     @Prop({
         required: true,
@@ -17,7 +17,7 @@ export default class App extends Vue {
         const quantity = this.store.cart?.cartItems.find((item) => item.product.id === this.productId)?.quantity;
         const cart = await updateCartItem({
             setup: {
-                currencyId: 1,
+                currencyId: this.store.currencyId,
             },
             guid: this.store.guid,
             productId: this.productId,

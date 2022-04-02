@@ -1,5 +1,6 @@
 import { reactive, watch } from 'vue';
 import { CartType, DeliveryMethodsType, PaymentMethodsType } from '../../typescript/Api';
+import Cookies from '../../typescript/Utils/Cookies';
 
 export type GlobalStoreType = {
     guid: string;
@@ -10,10 +11,16 @@ export type GlobalStoreType = {
     cart?: CartType;
 };
 
+type ShopDefaults = {
+    guid: string;
+    currencyId: number;
+    deliveryCountryId: number;
+};
+
 let state: GlobalStoreType = {
-    guid: '119d3d80-c3fe-4657-a141-f24aeff069c9',
-    currencyId: 1,
-    deliveryCountryId: 1,
+    guid: '',
+    currencyId: 0,
+    deliveryCountryId: 0,
     cart: undefined,
     deliveryMethods: [],
     paymentMethods: [],
@@ -22,6 +29,15 @@ let state: GlobalStoreType = {
 const persistentData = localStorage.getItem('global-store');
 if (persistentData) {
     state = JSON.parse(persistentData);
+}
+
+const shopDefaultsCookie = Cookies.get('shop_defaults');
+const shopDefaults: ShopDefaults | null = shopDefaultsCookie ? JSON.parse(atob(shopDefaultsCookie)) : null;
+
+if (shopDefaults) {
+    state.guid = shopDefaults.guid;
+    state.currencyId = shopDefaults.currencyId;
+    state.deliveryCountryId = shopDefaults.deliveryCountryId;
 }
 
 export const store = reactive({
