@@ -33,8 +33,9 @@ class Bootstrap
     public function configure(array $configPaths): Container
     {
         // Load env
+        $_ENV = array_merge(getenv(), $_ENV);
         $dotenv = new Dotenv();
-        $dotenv->load(Path::viewDir() . '/../.env');
+        $dotenv->overload(Path::viewDir() . '/../.env');
         
         // Setup debugger
         Debugger::enable($_ENV['APP_ENV_MODE'] === 'develop' ? Debugger::DEVELOPMENT : Debugger::PRODUCTION, Path::logDir());

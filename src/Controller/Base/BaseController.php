@@ -101,8 +101,7 @@ abstract class BaseController implements IController
     {
         $this->response->headers->set('Location', $url);
         $this->response->setStatusCode($status);
-        $this->response->send();
-        exit;
+        $this->sendResponse();
     }
     
     /**
@@ -157,7 +156,7 @@ abstract class BaseController implements IController
         return $result;
     }
     
-    public function renderError(ResponseInterface $response, string $message): never
+    public function renderError(ResponseInterface $response, string $message): void
     {
         $this->template->error = [
             'code' => $response->getStatusCode(),
@@ -167,8 +166,7 @@ abstract class BaseController implements IController
         $html = $this->latte->renderToString(Path::viewDir() . '/controller/error.latte', $this->template);
         $this->response->setStatusCode($response->getStatusCode());
         $this->response->setContent($html);
-        $this->response->send();
-        exit;
+        $this->sendResponse();
     }
     
     /**
@@ -181,5 +179,16 @@ abstract class BaseController implements IController
         $html = $this->latte->renderToString($filePath, $this->template);
         $this->response->setStatusCode(Response::HTTP_OK);
         $this->response->setContent($html);
+    }
+    
+    public function sendResponse(): never
+    {
+        $this->response->sendHeaders();
+        $this->response->sendContent();
+        
+        if ($_ENV['APP_ENV_MODE'] !== 'develop') {
+            fastcgi_finish_request();
+        }
+        exit;
     }
 }

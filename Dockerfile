@@ -1,18 +1,26 @@
-FROM php:8.1-apache
+FROM wyveo/nginx-php-fpm:php81
+
+WORKDIR /usr/share/nginx/html
+EXPOSE 80
 
 # Set timezone
 ENV TZ="Europe/Prague"
+
+# Copy project files, Nginx configs & PHP configs
+COPY . /usr/share/nginx/html
+COPY ./docker/nginx /etc/nginx
+COPY ./docker/php/8.1/cli/php.ini /etc/php/8.1/cli/php.ini
+COPY ./docker/php/8.1/fpm/php.ini /etc/php/8.1/fpm/php.ini
+COPY ./docker/php/8.1/fpm/php.ini /etc/php/8.1/fpm/php-fpm.conf
+COPY ./docker/php/8.1/fpm/pool.d/www.conf /etc/php/8.1/fpm/pool.d/www.conf
 
 # Apt packages update
 RUN apt-get update && apt-get install -y \
     zip git \
     libpq-dev \
-    libicu-dev
-
-# Install and configure PHP extensions
-RUN docker-php-ext-configure intl
-RUN docker-php-ext-install intl
-RUN a2enmod rewrite
+    libicu-dev \
+    curl \
+    gnupg
 
 # NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_17.x | bash - \
@@ -23,6 +31,19 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt update && apt install yarn
 
-# Composer
-RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
-RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+# Permissions
+RUN chmod -R ugo+w ./temp
+RUN chmod -R ugo+w ./log
+RUN mkdir -p ./www/temp && chmod -R ugo+rw ./www/temp
+
+# Install and build dependencies
+RUN composer install --prefer-dist --no-scripts && rm -rf /root/.composer
+RUN yarn
+RUN yarn prod
+
+# Remove node_modules & docker folder
+RUN rm -rf ./node_modules
+RUN rm -rf ./docker
+
+# Resolve permissions
+RUN chown -R www-data:www-data /usr/share/nginx/html

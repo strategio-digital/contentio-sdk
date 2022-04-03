@@ -11,11 +11,10 @@ use ContentioSdk\Attribute\Template;
 use ContentioSdk\Controller\Base\IController;
 use ContentioSdk\Router\RouterFactory;
 use Nette\DI\Container;
-use Symfony\Component\HttpFoundation\Response;
 
 class App
 {
-    public function run(Container $container): void
+    public function run(Container $container): never
     {
         /** @var RouterFactory $router */
         $router = $container->getByName('routerFactory');
@@ -47,8 +46,6 @@ class App
         }
         
         // Send response to browser
-        /** @var Response $response */
-        $response = $container->getByType(Response::class);
-        $response->send();
+        $controller->sendResponse();
     }
 }

@@ -12,4 +12,6 @@ interface IController
     public function startup(): void;
     
     public function render(string $filePath): void;
+    
+    public function sendResponse(): never;
 }
