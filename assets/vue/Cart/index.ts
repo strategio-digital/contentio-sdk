@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
-import router from '../../vue/Cart/src/router/router';
-import App from './src/App.vue';
+import App from './App.vue';
+import router from './Router/Router';
 
 export default () => {
     const app = createApp(App);

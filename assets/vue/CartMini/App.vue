@@ -1,15 +1,15 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-property-decorator';
-import CartSmall from './components/CartSmall.vue';
+import CartMini from './Components/CartMini.vue';
 
 @Options({
     components: {
-        CartSmall,
+        CartMini,
     },
 })
 export default class App extends Vue {}
 </script>
 
 <template>
-    <CartSmall />
+    <CartMini />
 </template>

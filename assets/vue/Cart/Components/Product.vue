@@ -1,8 +1,8 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { ProductType, updateCartItem } from '../../../../typescript/Api';
-import { RouterFactory } from '../../../../typescript/Routes/RouterFactory';
-import { store } from '../../../store';
+import { ProductType, updateCartItem } from '../../../typescript/Api';
+import { RouterFactory } from '../../../typescript/Routes/RouterFactory';
+import { store } from '../../Store/CartStore';
 
 @Options({})
 export default class Product extends Vue {

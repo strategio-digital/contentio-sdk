@@ -1,9 +1,9 @@
 <script lang="ts">
 import { Options, Prop, Vue } from 'vue-property-decorator';
-import { updateCartItem } from '../../../typescript/Api';
-import { store } from '../../store';
+import { updateCartItem } from '../../typescript/Api';
+import { store } from '../Store/CartStore';
 
-@Options({ name: 'add-to-cart' })
+@Options({})
 export default class App extends Vue {
     @Prop({
         required: true,

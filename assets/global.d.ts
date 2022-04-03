@@ -7,12 +7,12 @@ import { Alpine as AlpineType } from 'alpinejs';
 
 declare global {
     interface Window {
-        Alpine: AlpineType,
-        dataLayer: Array<object>,
-        gtag: (p1:any, p2:any) => void,
+        Alpine: AlpineType;
+        dataLayer: Array<object>;
+        gtag: (p1: any, p2: any) => void;
         measurement: {
-            gtm_id: string,
-            gtm_enabled: boolean,
-        }
+            gtm_id: string;
+            gtm_enabled: boolean;
+        };
     }
 }

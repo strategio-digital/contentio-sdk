@@ -1,8 +1,11 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Product from '../components/Product.vue';
+import Product from '../Components/Product.vue';
+
 @Options({
-    components: { Product },
+    components: {
+        Product,
+    },
 })
 export default class Cart extends Vue {}
 </script>

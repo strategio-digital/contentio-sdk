@@ -26,6 +26,6 @@ import FormValidator from './Utils/FormValidator';
     // Contact Form
     ContactForm(formValidator, document.getElementById('contactForm') as HTMLFormElement | null, []);
 
-    // VueJS init
+    // VueJS
     Vue();
 })();

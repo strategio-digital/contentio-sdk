@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
-import App from './src/App.vue';
+import App from './App.vue';
 
 export default () => {
     const app = createApp(App);
-    app.mount('#vueCartSmall');
+    app.mount('#vueCartMini');
 };

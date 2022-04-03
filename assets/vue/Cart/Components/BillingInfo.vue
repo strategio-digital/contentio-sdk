@@ -1,10 +1,10 @@
 <script lang="ts">
-import {Options, Vue} from "vue-class-component";
-import {Form, Field, ErrorMessage} from "vee-validate";
-import Summary from "./Summary.vue";
-import {store} from "../../../store";
-import {Switch, SwitchGroup, SwitchLabel} from "@headlessui/vue";
-import {defineRules} from "../../../Plugins/vee-validate";
+import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue';
+import { ErrorMessage, Field, Form } from 'vee-validate';
+import { Options, Vue } from 'vue-class-component';
+import { defineRules } from '../../Plugins/VeeValidate';
+import { store } from '../../Store/CartStore';
+import Summary from './Summary.vue';
 
 // TODO dát na nějaké rozumné místo
 defineRules();
@@ -18,7 +18,7 @@ defineRules();
         SwitchGroup,
         SwitchLabel,
         ErrorMessage,
-    }
+    },
 })
 export default class BillingInfo extends Vue {
     private store = store;
@@ -77,15 +77,19 @@ export default class BillingInfo extends Vue {
 
                     <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                         <div>
-                            <label for="email-address" class="block text-sm font-medium text-gray-700">Zadejte e-mail
-                                *</label>
+                            <label for="email-address" class="block text-sm font-medium text-gray-700"
+                                >Zadejte e-mail *</label
+                            >
                             <div class="mt-1">
                                 <Field
                                     rules="email|required|hasA"
                                     v-model="formData.contact.email"
-                                    type="email" id="email-address" name="email-address" autocomplete="email"
+                                    type="email"
+                                    id="email-address"
+                                    name="email-address"
+                                    autocomplete="email"
                                     class="block w-full border-red border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['email-address']}"
+                                    :class="{ 'border-red-500': errors['email-address'] }"
                                 />
                                 <ErrorMessage name="email-address">
                                     <span class="text-red-500">{{ errors['email-address'] }}</span>
@@ -99,9 +103,12 @@ export default class BillingInfo extends Vue {
                                 <Field
                                     rules="required"
                                     v-model="formData.contact.phone"
-                                    type="text" name="phone" id="phone" autocomplete="tel"
+                                    type="text"
+                                    name="phone"
+                                    id="phone"
+                                    autocomplete="tel"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['phone']}"
+                                    :class="{ 'border-red-500': errors['phone'] }"
                                 />
                                 <ErrorMessage name="phone">
                                     <span class="text-red-500">Tato položka je povinná</span>
@@ -110,15 +117,19 @@ export default class BillingInfo extends Vue {
                         </div>
 
                         <div>
-                            <label for="first-name" class="block text-sm font-medium text-gray-700">Zadejte křestní
-                                jméno *</label>
+                            <label for="first-name" class="block text-sm font-medium text-gray-700"
+                                >Zadejte křestní jméno *</label
+                            >
                             <div class="mt-1">
                                 <Field
                                     rules="required"
                                     v-model="formData.contact.firstName"
-                                    type="text" id="first-name" name="first-name" autocomplete="given-name"
+                                    type="text"
+                                    id="first-name"
+                                    name="first-name"
+                                    autocomplete="given-name"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['first-name']}"
+                                    :class="{ 'border-red-500': errors['first-name'] }"
                                 />
                                 <ErrorMessage name="first-name">
                                     <span class="text-red-500">Tato položka je povinná</span>
@@ -127,15 +138,19 @@ export default class BillingInfo extends Vue {
                         </div>
 
                         <div>
-                            <label for="last-name" class="block text-sm font-medium text-gray-700">Zadejte příjmení
-                                *</label>
+                            <label for="last-name" class="block text-sm font-medium text-gray-700"
+                                >Zadejte příjmení *</label
+                            >
                             <div class="mt-1">
                                 <Field
                                     rules="required"
                                     v-model="formData.contact.lastName"
-                                    type="text" id="last-name" name="last-name" autocomplete="family-name"
+                                    type="text"
+                                    id="last-name"
+                                    name="last-name"
+                                    autocomplete="family-name"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['last-name']}"
+                                    :class="{ 'border-red-500': errors['last-name'] }"
                                 />
                                 <ErrorMessage name="last-name">
                                     <span class="text-red-500">Tato položka je povinná</span>
@@ -151,29 +166,40 @@ export default class BillingInfo extends Vue {
                     <SwitchGroup as="div" class="mt-4 flex items-center">
                         <Switch
                             v-model="hasIc"
-                            :class="[hasIc ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']"
+                            :class="[
+                                hasIc ? 'bg-indigo-600' : 'bg-gray-200',
+                                'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
+                            ]"
                         >
                             <span
                                 aria-hidden="true"
-                                :class="[hasIc ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']"
+                                :class="[
+                                    hasIc ? 'translate-x-5' : 'translate-x-0',
+                                    'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
+                                ]"
                             />
                         </Switch>
                         <SwitchLabel as="span" class="ml-3">
-                            <span class="text-sm font-medium text-gray-900">Zvolte, pokud potřebujete vyplnit IČ, případně DIČ.</span>
+                            <span class="text-sm font-medium text-gray-900"
+                                >Zvolte, pokud potřebujete vyplnit IČ, případně DIČ.</span
+                            >
                         </SwitchLabel>
                     </SwitchGroup>
 
                     <div v-if="hasIc">
                         <div class="mt-6 sm:col-span-2">
-                            <label for="company" class="block text-sm font-medium text-gray-700">Zadejte obchodní
-                                jméno</label>
+                            <label for="company" class="block text-sm font-medium text-gray-700"
+                                >Zadejte obchodní jméno</label
+                            >
                             <div class="mt-1">
                                 <Field
                                     rules="required"
                                     v-model="formData.company.name"
-                                    type="text" name="company" id="company"
+                                    type="text"
+                                    name="company"
+                                    id="company"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['company']}"
+                                    :class="{ 'border-red-500': errors['company'] }"
                                 />
                                 <ErrorMessage name="company">
                                     <span class="text-red-500">Tato položka je povinná</span>
@@ -184,12 +210,18 @@ export default class BillingInfo extends Vue {
                         <SwitchGroup as="div" class="mt-4 flex items-center">
                             <Switch
                                 v-model="hasDic"
-                                :class="[hasDic ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']"
+                                :class="[
+                                    hasDic ? 'bg-indigo-600' : 'bg-gray-200',
+                                    'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
+                                ]"
                             >
-                                    <span
-                                        aria-hidden="true"
-                                        :class="[hasDic ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']"
-                                    />
+                                <span
+                                    aria-hidden="true"
+                                    :class="[
+                                        hasDic ? 'translate-x-5' : 'translate-x-0',
+                                        'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
+                                    ]"
+                                />
                             </Switch>
                             <SwitchLabel as="span" class="ml-3">
                                 <span class="text-sm font-medium text-gray-900">Zvolte, pokud jste plátce DPH.</span>
@@ -198,15 +230,19 @@ export default class BillingInfo extends Vue {
 
                         <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                             <div>
-                                <label for="company-ic" class="block text-sm font-medium text-gray-700">Zadejte IČ
-                                    *</label>
+                                <label for="company-ic" class="block text-sm font-medium text-gray-700"
+                                    >Zadejte IČ *</label
+                                >
                                 <div class="mt-1">
                                     <Field
                                         rules="required"
                                         v-model="formData.company.ic"
-                                        type="email" id="company-ic" name="company-ic" autocomplete="ic"
+                                        type="email"
+                                        id="company-ic"
+                                        name="company-ic"
+                                        autocomplete="ic"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        :class="{'border-red-500': errors['company-ic']}"
+                                        :class="{ 'border-red-500': errors['company-ic'] }"
                                     />
                                     <ErrorMessage name="company-ic">
                                         <span class="text-red-500">Tato položka je povinná</span>
@@ -215,13 +251,17 @@ export default class BillingInfo extends Vue {
                             </div>
 
                             <div>
-                                <label for="company-dic" class="block text-sm font-medium text-gray-700">Zadejte
-                                    DIČ</label>
+                                <label for="company-dic" class="block text-sm font-medium text-gray-700"
+                                    >Zadejte DIČ</label
+                                >
                                 <div class="mt-1">
                                     <Field
                                         :disabled="!hasDic"
                                         v-model="formData.company.dic"
-                                        type="text" name="company-dic" id="company-dic" autocomplete="dic"
+                                        type="text"
+                                        name="company-dic"
+                                        id="company-dic"
+                                        autocomplete="dic"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm disabled:bg-gray-100"
                                     />
                                 </div>
@@ -242,9 +282,12 @@ export default class BillingInfo extends Vue {
                                 <Field
                                     rules="required"
                                     v-model="formData.billing.street"
-                                    type="email" id="billing-street" name="billing-street" autocomplete="billing-street"
+                                    type="email"
+                                    id="billing-street"
+                                    name="billing-street"
+                                    autocomplete="billing-street"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['billing-street']}"
+                                    :class="{ 'border-red-500': errors['billing-street'] }"
                                 />
                                 <ErrorMessage name="billing-street">
                                     <span class="text-red-500">Tato položka je povinná</span>
@@ -253,15 +296,19 @@ export default class BillingInfo extends Vue {
                         </div>
 
                         <div>
-                            <label for="billing-city" class="block text-sm font-medium text-gray-700">Zadejte obec
-                                *</label>
+                            <label for="billing-city" class="block text-sm font-medium text-gray-700"
+                                >Zadejte obec *</label
+                            >
                             <div class="mt-1">
                                 <Field
                                     rules="required"
                                     v-model="formData.billing.city"
-                                    type="text" name="billing-city" id="billing-city" autocomplete="billing-city"
+                                    type="text"
+                                    name="billing-city"
+                                    id="billing-city"
+                                    autocomplete="billing-city"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['billing-city']}"
+                                    :class="{ 'border-red-500': errors['billing-city'] }"
                                 />
                                 <ErrorMessage name="billing-city">
                                     <span class="text-red-500">Tato položka je povinná</span>
@@ -277,9 +324,12 @@ export default class BillingInfo extends Vue {
                                 <Field
                                     rules="required"
                                     v-model="formData.billing.zip"
-                                    type="text" id="billing-zip" name="billing-zip" autocomplete="billing-zip"
+                                    type="text"
+                                    id="billing-zip"
+                                    name="billing-zip"
+                                    autocomplete="billing-zip"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['billing-zip']}"
+                                    :class="{ 'border-red-500': errors['billing-zip'] }"
                                 />
                                 <ErrorMessage name="billing-zip">
                                     <span class="text-red-500">Tato položka je povinná</span>
@@ -295,10 +345,12 @@ export default class BillingInfo extends Vue {
                                 <Field
                                     rules="required"
                                     v-model="formData.billing.country"
-                                    as="select" id="billing-country" name="billing-country"
+                                    as="select"
+                                    id="billing-country"
+                                    name="billing-country"
                                     autocomplete="billing-country"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    :class="{'border-red-500': errors['billing-country']}"
+                                    :class="{ 'border-red-500': errors['billing-country'] }"
                                 >
                                     <option value="1">Česká Republika</option>
                                     <option value="1">Slovenská Republika</option>
@@ -317,15 +369,23 @@ export default class BillingInfo extends Vue {
                     <SwitchGroup as="div" class="mt-4 flex items-center">
                         <Switch
                             v-model="hasDifferentDeliveryAddress"
-                            :class="[hasDifferentDeliveryAddress ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500']"
+                            :class="[
+                                hasDifferentDeliveryAddress ? 'bg-indigo-600' : 'bg-gray-200',
+                                'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
+                            ]"
                         >
                             <span
                                 aria-hidden="true"
-                                :class="[hasDifferentDeliveryAddress ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200']"
+                                :class="[
+                                    hasDifferentDeliveryAddress ? 'translate-x-5' : 'translate-x-0',
+                                    'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200',
+                                ]"
                             />
                         </Switch>
                         <SwitchLabel as="span" class="ml-3">
-                            <span class="text-sm font-medium text-gray-900">Zvolte, pokud jsou rozdílné dodací a fakturační údaje.</span>
+                            <span class="text-sm font-medium text-gray-900"
+                                >Zvolte, pokud jsou rozdílné dodací a fakturační údaje.</span
+                            >
                         </SwitchLabel>
                     </SwitchGroup>
 
@@ -339,7 +399,9 @@ export default class BillingInfo extends Vue {
                                     <Field
                                         rules="required"
                                         v-model="formData.delivery.name"
-                                        type="email" id="delivery-name" name="delivery-name"
+                                        type="email"
+                                        id="delivery-name"
+                                        name="delivery-name"
                                         autocomplete="delivery-name"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     />
@@ -347,12 +409,16 @@ export default class BillingInfo extends Vue {
                             </div>
 
                             <div>
-                                <label for="delivery-note" class="block text-sm font-medium text-gray-700">Zadejte
-                                    firmu, byt, patro</label>
+                                <label for="delivery-note" class="block text-sm font-medium text-gray-700"
+                                    >Zadejte firmu, byt, patro</label
+                                >
                                 <div class="mt-1">
                                     <Field
                                         v-model="formData.delivery.note"
-                                        type="text" name="delivery-note" id="delivery-note" autocomplete="delivery-note"
+                                        type="text"
+                                        name="delivery-note"
+                                        id="delivery-note"
+                                        autocomplete="delivery-note"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     />
                                 </div>
@@ -366,7 +432,9 @@ export default class BillingInfo extends Vue {
                                     <Field
                                         rules="required"
                                         v-model="formData.delivery.street"
-                                        type="email" id="delivery-street" name="delivery-street"
+                                        type="email"
+                                        id="delivery-street"
+                                        name="delivery-street"
                                         autocomplete="delivery-street"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     />
@@ -374,13 +442,17 @@ export default class BillingInfo extends Vue {
                             </div>
 
                             <div>
-                                <label for="delivery-city" class="block text-sm font-medium text-gray-700">Zadejte obec
-                                    *</label>
+                                <label for="delivery-city" class="block text-sm font-medium text-gray-700"
+                                    >Zadejte obec *</label
+                                >
                                 <div class="mt-1">
                                     <Field
                                         rules="required"
                                         v-model="formData.delivery.city"
-                                        type="text" name="delivery-city" id="delivery-city" autocomplete="delivery-city"
+                                        type="text"
+                                        name="delivery-city"
+                                        id="delivery-city"
+                                        autocomplete="delivery-city"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     />
                                 </div>
@@ -394,7 +466,10 @@ export default class BillingInfo extends Vue {
                                     <Field
                                         rules="required"
                                         v-model="formData.delivery.zip"
-                                        type="text" id="delivery-zip" name="delivery-zip" autocomplete="delivery-zip"
+                                        type="text"
+                                        id="delivery-zip"
+                                        name="delivery-zip"
+                                        autocomplete="delivery-zip"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     />
                                 </div>
@@ -408,7 +483,9 @@ export default class BillingInfo extends Vue {
                                     <Field
                                         rules="required"
                                         v-model="formData.delivery.country"
-                                        as="select" id="delivery-country" name="delivery-country"
+                                        as="select"
+                                        id="delivery-country"
+                                        name="delivery-country"
                                         autocomplete="delivery-country"
                                         class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
@@ -420,13 +497,17 @@ export default class BillingInfo extends Vue {
                         </div>
 
                         <div class="mt-4">
-                            <label for="delivery-phone" class="block text-sm font-medium text-gray-700">Zadejte telefon
-                                *</label>
+                            <label for="delivery-phone" class="block text-sm font-medium text-gray-700"
+                                >Zadejte telefon *</label
+                            >
                             <div class="mt-1">
                                 <Field
                                     rules="required"
                                     v-model="formData.delivery.phone"
-                                    type="text" name="delivery-phone" id="delivery-phone" autocomplete="delivery-phone"
+                                    type="text"
+                                    name="delivery-phone"
+                                    id="delivery-phone"
+                                    autocomplete="delivery-phone"
                                     class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
                             </div>
@@ -437,12 +518,16 @@ export default class BillingInfo extends Vue {
                 <div class="order-message mt-10 border-t border-gray-200 pt-10">
                     <h2 class="text-lg font-medium text-gray-900">Ještě něco, co bychom měli vědět?</h2>
 
-                    <label for="message" class="mt-4 block text-sm font-medium text-gray-700">Zde můžete popsat Váš
-                        požadavek</label>
+                    <label for="message" class="mt-4 block text-sm font-medium text-gray-700"
+                        >Zde můžete popsat Váš požadavek</label
+                    >
                     <div class="mt-1">
                         <Field
                             v-model="formData.message"
-                            as="textarea" name="message" id="message" autocomplete="message"
+                            as="textarea"
+                            name="message"
+                            id="message"
+                            autocomplete="message"
                             class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                     </div>

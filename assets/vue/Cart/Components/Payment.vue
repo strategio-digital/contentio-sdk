@@ -1,11 +1,19 @@
 <script lang="ts">
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue';
 import { Options, Vue } from 'vue-property-decorator';
-import { getPaymentMethods, PaymentMethodsType, updateCartPaymentMethod } from '../../../../typescript/Api';
-import { store } from '../../../store';
+import { getPaymentMethods, PaymentMethodsType, updateCartPaymentMethod } from '../../../typescript/Api';
+import { store } from '../../Store/CartStore';
 import Loader from './Loader.vue';
 
-@Options({ components: { Loader, RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } })
+@Options({
+    components: {
+        Loader,
+        RadioGroup,
+        RadioGroupDescription,
+        RadioGroupLabel,
+        RadioGroupOption,
+    },
+})
 export default class Payment extends Vue {
     private store = store;
 

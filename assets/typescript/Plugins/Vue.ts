@@ -1,20 +1,20 @@
-import VueAddToCart from '../../vue/AddToCartButton';
-import VueCart from '../../vue/Cart';
-import VueCartSmall from '../../vue/CartSmall';
+import Cart from '../../vue/Cart';
+import CartButton from '../../vue/CartButton';
+import CartMini from '../../vue/CartMini';
 
 export default () => {
-    // Cart init
+    // Cart
     if (document.getElementById('vueCart')) {
-        VueCart();
+        Cart();
     }
 
-    // Cart small init;
-    if (document.getElementById('vueCartSmall')) {
-        VueCartSmall();
+    // Mini cart
+    if (document.getElementById('vueCartMini')) {
+        CartMini();
     }
 
     // Add to cart btn
     Array.from(document.querySelectorAll('[data-vue-add-to-cart]')).forEach((elm) => {
-        VueAddToCart(elm as HTMLElement);
+        CartButton(elm as HTMLElement);
     });
 };

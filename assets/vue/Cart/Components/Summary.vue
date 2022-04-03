@@ -1,11 +1,15 @@
 <script lang="ts">
 import { TrashIcon } from '@heroicons/vue/solid';
 import { Options, Vue } from 'vue-class-component';
-import { ProductType, updateCartItem } from '../../../../typescript/Api';
-import { RouterFactory } from '../../../../typescript/Routes/RouterFactory';
-import { store } from '../../../store';
+import { ProductType, updateCartItem } from '../../../typescript/Api';
+import { RouterFactory } from '../../../typescript/Routes/RouterFactory';
+import { store } from '../../Store/CartStore';
 
-@Options({ components: { TrashIcon } })
+@Options({
+    components: {
+        TrashIcon,
+    },
+})
 export default class Summary extends Vue {
     private store = store;
 

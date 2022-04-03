@@ -2,7 +2,7 @@ import { reactive, watch } from 'vue';
 import { CartType, DeliveryMethodsType, PaymentMethodsType } from '../../typescript/Api';
 import Cookies from '../../typescript/Utils/Cookies';
 
-export type GlobalStoreType = {
+export type CartStoreType = {
     guid: string;
     currencyId: number;
     deliveryCountryId: number;
@@ -17,7 +17,7 @@ type ShopDefaults = {
     deliveryCountryId: number;
 };
 
-let state: GlobalStoreType = {
+let state: CartStoreType = {
     guid: '',
     currencyId: 0,
     deliveryCountryId: 0,
@@ -42,11 +42,10 @@ if (shopDefaults) {
 
 export const store = reactive({
     ...state,
-
-    setCurrencyId(currencyId: GlobalStoreType['currencyId']) {
+    setCurrencyId(currencyId: CartStoreType['currencyId']) {
         this.currencyId = currencyId;
     },
-    setDeliveryCountryId(deliveryCountryId: GlobalStoreType['deliveryCountryId']) {
+    setDeliveryCountryId(deliveryCountryId: CartStoreType['deliveryCountryId']) {
         this.deliveryCountryId = deliveryCountryId;
     },
     setDeliveryMethods(delivery: DeliveryMethodsType) {
@@ -70,6 +69,6 @@ export const store = reactive({
     },
 });
 
-watch(store, (state: GlobalStoreType) => {
+watch(store, (state: CartStoreType) => {
     localStorage.setItem('global-store', JSON.stringify(state));
 });

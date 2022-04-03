@@ -1,5 +1,5 @@
+import { email, required } from '@vee-validate/rules';
 import { defineRule } from 'vee-validate';
-import { required, email } from '@vee-validate/rules';
 
 // docs: https://vee-validate.logaretm.com/v4/guide/global-validators
 export const defineRules = () => {
@@ -14,4 +14,4 @@ export const defineRules = () => {
         }
         return true;
     });
-}
+};

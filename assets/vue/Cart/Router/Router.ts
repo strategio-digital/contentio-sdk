@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import BillingInfo from '../views/BillingInfo.vue';
+import Cart from '../views/Cart.vue';
 import DeliveryAndPayment from '../views/DeliveryAndPayment.vue';
-import Cart from './../views/Cart.vue';
 
 export default () =>
     createRouter({

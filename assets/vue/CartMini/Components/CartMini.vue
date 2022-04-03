@@ -2,9 +2,9 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue';
 import { ShoppingBagIcon } from '@heroicons/vue/outline';
 import { Options, Vue } from 'vue-property-decorator';
-import { CartType } from '../../../../typescript/Api';
-import { RouterFactory } from '../../../../typescript/Routes/RouterFactory';
-import { store } from '../../../store';
+import { CartType } from '../../../typescript/Api';
+import { RouterFactory } from '../../../typescript/Routes/RouterFactory';
+import { store } from '../../Store/CartStore';
 
 @Options({
     components: {
@@ -14,7 +14,7 @@ import { store } from '../../../store';
         ShoppingBagIcon,
     },
 })
-export default class CartSmall extends Vue {
+export default class CartMini extends Vue {
     private store = store;
 
     private routes = RouterFactory;
