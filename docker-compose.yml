@@ -14,4 +14,9 @@ services:
     ports:
       - "1337:80"
     volumes:
-      - $PWD:/var/www/html:cached
+      - ./docker/nginx:/etc/nginx
+      - ./docker/php/8.1/cli/php.ini:/etc/php/8.1/cli/php.ini
+      - ./docker/php/8.1/fpm/php.ini:/etc/php/8.1/fpm/php.ini
+      - ./docker/php/8.1/fpm/php.ini:/etc/php/8.1/fpm/php-fpm.conf
+      - ./docker/php/8.1/fpm/pool.d/www.conf:/etc/php/8.1/fpm/pool.d/www.conf
+      - $PWD:/usr/share/nginx/html:cached
