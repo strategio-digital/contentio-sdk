@@ -35,8 +35,9 @@ export default class Summary extends Vue {
 
         <div v-if="store.cart?.cartItems" class="bg-white border border-gray-200 rounded-lg shadow-sm">
             <h3 class="sr-only">Items in your cart</h3>
+
             <ul role="list" class="divide-y divide-gray-200">
-                <li v-for="item in store.cart.cartItems" :key="item.id" class="flex py-6 px-4 sm:px-6">
+                <li v-for="item in store.cart?.cartItems" :key="item.id" class="flex py-6 px-4 sm:px-6">
                     <div class="flex-shrink-0">
                         <img
                             src="https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg"
@@ -114,12 +115,12 @@ export default class Summary extends Vue {
 
             <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
                 <slot name="button">
-                    <button
-                        type="submit"
-                        class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                    <router-link
+                        :to="{ name: 'billing-info' }"
+                        class="block text-center w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                     >
                         Pokračovat v objednávce
-                    </button>
+                    </router-link>
                 </slot>
             </div>
         </div>

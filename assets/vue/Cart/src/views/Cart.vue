@@ -1,7 +1,12 @@
-<template>It works</template>
-
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-@Options({})
+import Product from '../components/Product.vue';
+@Options({
+    components: { Product },
+})
 export default class Cart extends Vue {}
 </script>
+
+<template>
+    <Product />
+</template>
