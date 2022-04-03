@@ -39,7 +39,6 @@ export default class Delivery extends Vue {
 </script>
 
 <template>
-    {{ store.cart?.deliveryMethod?.name }}
     <RadioGroup :model-value="store.cart?.deliveryMethod?.id" @update:modelValue="onDeliveryMethodChange" class="mb-5">
         <RadioGroupLabel class="text-lg font-medium text-gray-900 block mb-4"> Zvolte dopravu</RadioGroupLabel>
 
