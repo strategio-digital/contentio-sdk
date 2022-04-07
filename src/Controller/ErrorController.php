@@ -16,6 +16,7 @@ class ErrorController extends BaseController
     #[Template(path: __DIR__ . '/../../view/controller/error.latte')]
     public function index(): void
     {
+        $this->response->setStatusCode(Response::HTTP_NOT_FOUND);
         $this->template->error = ['code' => Response::HTTP_NOT_FOUND];
     }
 }
