@@ -177,7 +177,6 @@ abstract class BaseController implements IController
     public function render(string $filePath): void
     {
         $html = $this->latte->renderToString($filePath, $this->template);
-        $this->response->setStatusCode(Response::HTTP_OK);
         $this->response->setContent($html);
     }
     
