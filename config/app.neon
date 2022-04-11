@@ -14,3 +14,4 @@ services:
     - ContentioSdk\Bootstrap
     - ContentioSdk\Debugger\ApiDebugger
     - ContentioSdk\Component\AssetLoader
+    - ContentioSdk\Component\Thumbnail\ThumbGen

@@ -122,3 +122,10 @@ public function index(string $slug): void
     $this->template->articles = [$a1, $a2];
 }
 ```
+
+### 5. Creating image thumbnail
+```latte
+{varType ContentioSdk\Component\Thumbnail\ThumbGen $thumbGen}
+{var $thumb = $thumbGen->create('<my_aws_file.jpg>', 600, 600, 'EXACT', 80)}
+<img loading="lazy" src="{$thumb->getSrc()}" width="{$thumb->getWidth()}" height="{$thumb->getHeight()}" data-thumb="{$thumb->getJson()}" alt="...">
+```
