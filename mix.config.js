@@ -3,7 +3,7 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  */
 
-const webpack = require('webpack');
+const webpack = require("webpack");
 
 module.exports = (mix, images = true) => {
     // Webpack config
@@ -12,20 +12,21 @@ module.exports = (mix, images = true) => {
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: true,
                 __VUE_PROD_DEVTOOLS__: false,
-                'process.env': {
+                "process.env": {
                     APP_ENV_MODE: JSON.stringify(process.env.APP_ENV_MODE),
                     APP_TIME_ZONE: JSON.stringify(process.env.APP_TIME_ZONE),
                     API_URL_JS: JSON.stringify(process.env.API_URL_JS),
                     API_ACCESS_TOKEN: JSON.stringify(process.env.API_ACCESS_TOKEN),
                     GTM_ID: JSON.stringify(process.env.GTM_ID),
                     GTM_ENABLED: JSON.stringify(process.env.GTM_ENABLED),
-                }
+                    CDN_ENDPOINT: JSON.stringify(process.env.CDN_ENDPOINT),
+                },
             }),
-        ]
-    })
+        ],
+    });
 
     // Mix settings
-    mix.options({publicPath: 'www/temp/static'})
+    mix.options({publicPath: "www/temp/static"});
     //mix.browserSync({proxy: 'localhost:3000', port: 3001});
     mix.disableNotifications();
 
@@ -34,18 +35,23 @@ module.exports = (mix, images = true) => {
     }
 
     // App TS + Vue TS
-    mix.ts('assets/typescript/App.ts', 'js').sourceMaps(false, 'source-map')//.vue();
+    mix.ts("assets/typescript/App.ts", "js").sourceMaps(false, "source-map"); //.vue();
 
     // Scss & Css
-    mix.sass('assets/scss/App.scss', 'www/temp/static/css').postCss('assets/css/App.css', "css", [require("tailwindcss")]);
+    mix
+        .sass("assets/scss/App.scss", "www/temp/static/css")
+        .postCss("assets/css/App.css", "css", [require("tailwindcss")]);
 
     // Images
-    mix.copyDirectory('assets/img/**/*', 'www/temp/static/img');
+    mix.copyDirectory("assets/img/**/*", "www/temp/static/img");
 
     // Directory hack (if you in use)
     if (images) {
-        mix.copyDirectory('vendor/strategio/contentio-sdk/assets/img/**/*', 'www/temp/static/img');
+        mix.copyDirectory(
+            "vendor/strategio/contentio-sdk/assets/img/**/*",
+            "www/temp/static/img"
+        );
     }
 
     return mix;
-}
+};

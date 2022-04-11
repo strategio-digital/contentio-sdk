@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace ContentioSdk\Controller\Base;
 
 use ContentioSdk\Component\AssetLoader;
+use ContentioSdk\Component\Thumbnail\ThumbGen;
 use ContentioSdk\Debugger\ApiDebugger;
 use ContentioSdk\Helper\Path;
 use GuzzleHttp\Client;
@@ -39,6 +40,7 @@ abstract class BaseController implements IController
         protected ApiDebugger  $apiDebugger,
         protected Response     $response,
         protected AssetLoader  $assetLoader,
+        protected ThumbGen     $thumbGen,
         protected UrlGenerator $urlGenerator,
         public Request         $request,
     )
@@ -66,6 +68,7 @@ abstract class BaseController implements IController
         
         $this->template = new \stdClass;
         $this->template->assets = $this->assetLoader;
+        $this->template->thumbGen = $this->thumbGen;
         $this->template->controller = $this;
     }
     
