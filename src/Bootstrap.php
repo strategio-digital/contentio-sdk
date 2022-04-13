@@ -9,6 +9,7 @@ namespace ContentioSdk;
 
 use ContentioSdk\Debugger\ApiDebugger;
 use ContentioSdk\Helper\Path;
+use Latte\Bridges\Tracy\LattePanel;
 use Latte\Engine;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
@@ -51,8 +52,13 @@ class Bootstrap
         
         /** @var Container $container */
         $container = new $class;
+    
+        // Append Latte DebugBar
+        /** @var Engine $latte */
+        $latte = $container->getByType(Engine::class);
+        Debugger::getBar()->addPanel(new LattePanel($latte));
         
-        // Append DebugBar
+        // Append Api DebugBar
         /** @var ApiDebugger $apiDebugger */
         $apiDebugger = $container->getByType(ApiDebugger::class);
         Debugger::getBar()->addPanel($apiDebugger);

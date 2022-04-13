@@ -20,7 +20,7 @@ class Thumbnail
         $this->method = mb_strtoupper($this->method);
         
         $this->splFileInfo = new \SplFileInfo($path);
-        $this->suffix = '--' . $this->method . '-' . $quality . '-' . $width . 'x' . $height;
+        $this->suffix = '--thumb[' . $this->method . '-' . $quality . '-' . $width . 'x' . $height . ']';
         
         $this->thumbFilePath = $this->splFileInfo->getPath() . '/'
             . $this->splFileInfo->getBasename('.' . $this->splFileInfo->getExtension()) . $this->suffix . '.'
@@ -42,14 +42,8 @@ class Thumbnail
         return $_ENV['CDN_ENDPOINT'] . $this->thumbFilePath;
     }
     
-    public function getJson(): string
+    public function getSourceSrc(): string
     {
-        return (string) json_encode([
-            'path' => $this->path,
-            'method' => $this->method,
-            'quality' => $this->quality,
-            'width' => $this->width,
-            'height' => $this->height,
-        ]);
+        return $_ENV['CDN_ENDPOINT'] . $this->path;
     }
 }
