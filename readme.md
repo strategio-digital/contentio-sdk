@@ -126,6 +126,6 @@ public function index(string $slug): void
 ### 5. Creating image thumbnail
 ```latte
 {varType ContentioSdk\Component\Thumbnail\ThumbGen $thumbGen}
-{var $thumb = $thumbGen->create('<my_aws_file.jpg>', 600, 600, 'EXACT', 80)}
-<img loading="lazy" src="{$thumb->getSrc()}" width="{$thumb->getWidth()}" height="{$thumb->getHeight()}" data-thumb="{$thumb->getJson()}" alt="...">
+{var $thumb = $thumbGen->create('_develop_contentio_app/article/56/test.png', rand(100, 500), null, 'SHRINK_ONLY', 80)}
+<img loading="lazy" src="{$thumb->getSrc()}" width="{$thumb->getWidth()}" height="{$thumb->getHeight()}" alt="...">
 ```
