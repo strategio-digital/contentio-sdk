@@ -11,6 +11,7 @@ use ContentioSdk\Debugger\ApiDebugger;
 use ContentioSdk\Helper\Path;
 use Latte\Bridges\Tracy\LattePanel;
 use Latte\Engine;
+use Nette\Bridges\DITracy\ContainerPanel;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
 use Symfony\Component\Dotenv\Dotenv;
@@ -52,6 +53,10 @@ class Bootstrap
         
         /** @var Container $container */
         $container = new $class;
+    
+        // Append DI DebugBar
+        /** @var ApiDebugger $apiDebugger */
+        Debugger::getBar()->addPanel(new ContainerPanel($container));
     
         // Append Latte DebugBar
         /** @var Engine $latte */
