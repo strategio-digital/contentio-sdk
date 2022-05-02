@@ -5,20 +5,41 @@
 
 {varType ContentioSdk\Component\AssetLoader $assets}
 {varType ContentioSdk\Controller\Base\BaseController $controller}
+{varType array $_ENV}
 
 <!doctype html>
 <html lang="cs" class="{block html}h-full bg-white{/block}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {block head}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" content="index,follow">
     {/block}
+
     {block styles}
         <link rel="stylesheet" href="{$assets->get('/css/App.css')}">
     {/block}
+
+    {block scriptsInHead}
+        {if $_ENV['GTM_ENABLED'] === 'yes'}
+            <script src="{$assets->get('/js/Head.js')}"></script>
+            <script n:syntax="off">
+                (function(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':
+                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer', window.measurement.gtm_id);
+            </script>
+        {/if}
+    {/block}
 </head>
 <body class="{block body}h-full{/block}">
+    {block bodyGtm}
+        <noscript n:if="$_ENV['GTM_ENABLED'] === 'yes'">
+            <iframe src="https://www.googletagmanager.com/ns.html?id={$_ENV['GTM_ID']}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+    {/block}
+
     {block top}
         {include './component/navbar.latte'}
     {/block}
@@ -33,18 +54,7 @@
     {block modal}{/block}
 
     {block scripts}
-        <script src="{$assets->get('/js/App.js')}"></script>
-    {/block}
-    {block gtm}
-        <script n:syntax="off">
-            if (window.measurement.gtm_enabled === true) {
-                (function(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':
-                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                    j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer', window.measurement.gtm_id);
-            }
-        </script>
+        <script src="{$assets->get('/js/App.js')}" defer async></script>
     {/block}
 </body>
 </html>

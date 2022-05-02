@@ -54,24 +54,16 @@ class Bootstrap
         /** @var Container $container */
         $container = new $class;
     
-        // Append DI DebugBar
-        /** @var ApiDebugger $apiDebugger */
-        Debugger::getBar()->addPanel(new ContainerPanel($container));
-    
-        // Append Latte DebugBar
-        /** @var Engine $latte */
-        $latte = $container->getByType(Engine::class);
-        Debugger::getBar()->addPanel(new LattePanel($latte));
-        
-        // Append Api DebugBar
         /** @var ApiDebugger $apiDebugger */
         $apiDebugger = $container->getByType(ApiDebugger::class);
-        Debugger::getBar()->addPanel($apiDebugger);
         
-        // Setup Latte
         /** @var Engine $latte */
         $latte = $container->getByType(Engine::class);
         $latte->setTempDirectory(Path::tempDir() . '/latte');
+        
+        Debugger::getBar()->addPanel(new ContainerPanel($container));
+        Debugger::getBar()->addPanel(new LattePanel($latte));
+        Debugger::getBar()->addPanel($apiDebugger);
     
         // Secure HttpResponse
         /** @var Response $response */

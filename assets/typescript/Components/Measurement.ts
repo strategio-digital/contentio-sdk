@@ -15,12 +15,18 @@ export default () => {
 
 export const trackSubscribe = () => {
     window.dataLayer.push({
-        event: 'newsletter_subscribe'
+        'event': 'eventTracking',
+        'eventCategory': 'form',
+        'eventAction': 'conversion',
+        'eventLabel': 'newsletter'
     });
 }
 
 export const trackLeadGenerate = () => {
     window.dataLayer.push({
-        event: 'generate_lead'
+        'event': 'eventTracking',
+        'eventCategory': 'form',
+        'eventAction': 'conversion',
+        'eventLabel': 'contact'
     });
 }
