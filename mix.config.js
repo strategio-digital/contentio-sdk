@@ -34,6 +34,9 @@ module.exports = (mix, images = true) => {
         mix.version();
     }
 
+    // JS in <head>
+    mix.ts("assets/typescript/Head.ts", "js").sourceMaps(false, "source-map");
+
     // App TS + Vue TS
     mix.ts("assets/typescript/App.ts", "js").sourceMaps(false, "source-map"); //.vue();
 
