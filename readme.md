@@ -8,19 +8,19 @@ _(If you read this readme on **npmjs.com**, switch to https://github.com/strateg
 
 - You can use it as "server-side-rendering (php)" AND "client-side-rendering (vue.js)" engine for your e-shop or website.
 
-- If you don't make any changes, the SDK will render a complete e-shop that will look exactly like https://contentio.shop
+- If you don't make any changes, the SDK will render a complete e-shop that will look exactly like https://contentio.store
 
 ## Installation guide
 
 ### 1. For classic usage
-**You have to clone another (meta-package) repository Contentio.shop**
+**You have to clone another (meta-package) repository contentio-store**
 
-1. `git clone git@github.com:strategio-digital/contentio.shop.git -b master <contentio-shop>`
+1. `git clone git@github.com:strategio-digital/contentio-store.git`
 2. `rm -rf <contentio-shop>/.git`
 3. Go to second step in "For contributors" and continue.
 
 ### 2. For contributors
-1. `git clone git@github.com:strategio-digital/contentio-sdk.git -b develop`
+1. `git clone git@github.com:strategio-digital/contentio-sdk.git`
 2. `cp .env.example .env && pico .env`
 3. `./project.sh serve`
 4. `./project.sh app`
