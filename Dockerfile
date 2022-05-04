@@ -17,7 +17,6 @@ COPY ./docker/php/8.1/fpm/pool.d/www.conf /etc/php/8.1/fpm/pool.d/www.conf
 # Apt packages update
 RUN apt-get update && apt-get install -y \
     zip git \
-    libpq-dev \
     libicu-dev \
     curl \
     gnupg
@@ -27,9 +26,7 @@ RUN curl -sL https://deb.nodesource.com/setup_17.x | bash - \
     && apt-get update && apt-get install -y nodejs && npm i npm -g
 
 # Yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt update && apt install yarn
+RUN corepack enable
 
 # Permissions
 RUN chmod -R ugo+w ./temp
@@ -46,4 +43,4 @@ RUN rm -rf ./node_modules
 RUN rm -rf ./docker
 
 # Resolve permissions
-#RUN chown -R www-data:www-data /usr/share/nginx/html
+RUN chown -R www-data:www-data /usr/share/nginx/html
