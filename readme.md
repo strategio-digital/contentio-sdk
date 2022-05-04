@@ -16,7 +16,7 @@ _(If you read this readme on **npmjs.com**, switch to https://github.com/strateg
 **You have to clone another (meta-package) repository contentio-store**
 
 1. `git clone git@github.com:strategio-digital/contentio-store.git`
-2. `rm -rf <contentio-shop>/.git`
+2. `rm -rf contentio-store/.git`
 3. Go to second step in "For contributors" and continue.
 
 ### 2. For contributors
