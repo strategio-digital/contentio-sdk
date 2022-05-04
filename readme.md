@@ -13,10 +13,10 @@ _(If you read this readme on **npmjs.com**, switch to https://github.com/strateg
 ## Installation guide
 
 ### 1. For classic usage
-**You have to clone another (meta-package) repository contentio-store**
+**You have to clone another repository rokuc-cz**
 
-1. `git clone git@github.com:strategio-digital/contentio-store.git`
-2. `rm -rf contentio-store/.git`
+1. `git clone git@github.com:strategio-digital/rokuc-cz.git <my-project>`
+2. `rm -rf <my-project>/.git`
 3. Go to second step in "For contributors" and continue.
 
 ### 2. For contributors
