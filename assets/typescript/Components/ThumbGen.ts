@@ -57,7 +57,7 @@ export default (onCreated?: onCreated) => {
 
         try {
             const response = await Axios.post('image/create', params);
-            const src = process.env.CDN_ENDPOINT + response.data.path;
+            const src = window.envs.CDN_ENDPOINT + response.data.path;
 
             findImages(src).forEach((image) => {
                 // Todo: better progress overlay && better sizing - dont use style=""
@@ -84,7 +84,7 @@ export default (onCreated?: onCreated) => {
             if (requestQueue.filter(src => target.src === src).length === 0) {
                 requestQueue.push(target.src);
 
-                const cdn = process.env.CDN_ENDPOINT as string;
+                const cdn = window.envs.CDN_ENDPOINT as string;
 
                 if (target.src.startsWith(cdn)) {
                     const path = target.src.replace(cdn, '');

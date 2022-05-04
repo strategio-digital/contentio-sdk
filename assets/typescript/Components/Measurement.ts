@@ -4,11 +4,6 @@
  */
 
 export default () => {
-    window.measurement = {
-        gtm_id: process.env.GTM_ID as string,
-        gtm_enabled: process.env.GTM_ENABLED as string === 'yes',
-    };
-
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({'js': new Date()});
 }

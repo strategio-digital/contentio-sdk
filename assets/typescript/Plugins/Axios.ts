@@ -6,11 +6,11 @@
 import axios from "axios";
 
 const Axios = axios.create({
-    baseURL: process.env.API_URL_JS,
+    baseURL: window.envs.API_URL_JS,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Api-Access-Token': process.env.API_ACCESS_TOKEN as string
+        'Api-Access-Token': window.envs.API_ACCESS_TOKEN
     },
 });
 

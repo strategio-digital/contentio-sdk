@@ -67,6 +67,7 @@ abstract class BaseController implements IController
         $this->client = new Client(['base_uri' => $_ENV['API_URL_PHP'], 'headers' => $apiHeaders]);
         
         $this->template = new \stdClass;
+        $this->template->envs = $this->jsEnvs();
         $this->template->assets = $this->assetLoader;
         $this->template->thumbGen = $this->thumbGen;
         $this->template->controller = $this;
@@ -192,5 +193,18 @@ abstract class BaseController implements IController
             fastcgi_finish_request();
         }
         exit;
+    }
+    
+    public function jsEnvs(): string
+    {
+        return (string)json_encode([
+            'APP_ENV_MODE' => $_ENV['APP_ENV_MODE'],
+            'APP_TIME_ZONE' => $_ENV['APP_TIME_ZONE'],
+            'API_URL_JS' => $_ENV['API_URL_JS'],
+            'API_ACCESS_TOKEN' => $_ENV['API_ACCESS_TOKEN'],
+            'GTM_ID' => $_ENV['GTM_ID'],
+            'GTM_ENABLED' => $_ENV['GTM_ENABLED'],
+            'CDN_ENDPOINT' => $_ENV['CDN_ENDPOINT'],
+        ]);
     }
 }

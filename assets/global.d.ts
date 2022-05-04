@@ -10,9 +10,14 @@ declare global {
         Alpine: AlpineType,
         dataLayer: Array<object>,
         gtag: (p1:any, p2:any) => void,
-        measurement: {
-            gtm_id: string,
-            gtm_enabled: boolean,
+        envs: {
+            APP_ENV_MODE: string,
+            APP_TIME_ZONE: string,
+            API_URL_JS: string
+            API_ACCESS_TOKEN: string,
+            GTM_ID: string,
+            GTM_ENABLED: string,
+            CDN_ENDPOINT: string,
         }
     }
 }

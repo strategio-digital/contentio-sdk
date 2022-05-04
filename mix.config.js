@@ -11,16 +11,7 @@ module.exports = (mix, images = true) => {
         plugins: [
             new webpack.DefinePlugin({
                 __VUE_OPTIONS_API__: true,
-                __VUE_PROD_DEVTOOLS__: false,
-                "process.env": {
-                    APP_ENV_MODE: JSON.stringify(process.env.APP_ENV_MODE),
-                    APP_TIME_ZONE: JSON.stringify(process.env.APP_TIME_ZONE),
-                    API_URL_JS: JSON.stringify(process.env.API_URL_JS),
-                    API_ACCESS_TOKEN: JSON.stringify(process.env.API_ACCESS_TOKEN),
-                    GTM_ID: JSON.stringify(process.env.GTM_ID),
-                    GTM_ENABLED: JSON.stringify(process.env.GTM_ENABLED),
-                    CDN_ENDPOINT: JSON.stringify(process.env.CDN_ENDPOINT),
-                },
+                __VUE_PROD_DEVTOOLS__: false
             }),
         ],
     });

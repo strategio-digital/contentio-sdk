@@ -6,6 +6,7 @@
 {varType ContentioSdk\Component\AssetLoader $assets}
 {varType ContentioSdk\Controller\Base\BaseController $controller}
 {varType array $_ENV}
+{varType string $envs}
 
 <!doctype html>
 <html lang="cs" class="{block html}h-full bg-white{/block}">
@@ -20,15 +21,16 @@
         <link rel="stylesheet" href="{$assets->get('/css/App.css')}">
     {/block}
 
+    <script>window.envs = JSON.parse({$envs});</script>
     {block scriptsInHead}
         {if $_ENV['GTM_ENABLED'] === 'yes'}
             <script src="{$assets->get('/js/Head.js')}"></script>
             <script n:syntax="off">
                 (function(w,d,s,l,i){ w[l]=w[l]||[];w[l].push({'gtm.start':
-                        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                     j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer', window.measurement.gtm_id);
+                })(window,document,'script','dataLayer', window.envs.GTM_ID);
             </script>
         {/if}
     {/block}
