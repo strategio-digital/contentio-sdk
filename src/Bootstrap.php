@@ -36,8 +36,12 @@ class Bootstrap
     {
         // Load env
         $_ENV = array_merge(getenv(), $_ENV);
-        $dotenv = new Dotenv();
-        $dotenv->overload(Path::viewDir() . '/../.env');
+        $envPath = Path::viewDir() . '/../.env';
+        
+        if (file_exists($envPath)) {
+            $dotenv = new Dotenv();
+            $dotenv->loadEnv($envPath);
+        }
         
         // Setup debugger
         Debugger::enable($_ENV['APP_ENV_MODE'] === 'develop' ? Debugger::DEVELOPMENT : Debugger::PRODUCTION, Path::logDir());
