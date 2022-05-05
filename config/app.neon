@@ -13,5 +13,6 @@ services:
     - ContentioSdk\App
     - ContentioSdk\Bootstrap
     - ContentioSdk\Debugger\ApiDebugger
+    - ContentioSdk\Component\StdTemplate
     - ContentioSdk\Component\AssetLoader
     - ContentioSdk\Component\Thumbnail\ThumbGen

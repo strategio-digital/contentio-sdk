@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace ContentioSdk;
 
+use ContentioSdk\Component\StdTemplate;
 use ContentioSdk\Debugger\ApiDebugger;
 use ContentioSdk\Helper\Path;
 use Latte\Bridges\Tracy\LattePanel;
@@ -68,8 +69,7 @@ class Bootstrap
         Debugger::getBar()->addPanel(new ContainerPanel($container));
         Debugger::getBar()->addPanel(new LattePanel($latte));
         Debugger::getBar()->addPanel($apiDebugger);
-    
-        // Secure HttpResponse
+        
         /** @var Response $response */
         $response = $container->getByType(Response::class);
         $response->headers->add([
@@ -79,6 +79,18 @@ class Bootstrap
             'X-Frame-Options' => 'SAMEORIGIN',
             'X-Xss-Protection' => '1; mode=block',
             'X-Content-Type-Options' => 'nosniff',
+        ]);
+    
+        /** @var StdTemplate $template */
+        $template = $container->getByType(StdTemplate::class);
+        $template->envs = (string)json_encode([
+            'APP_ENV_MODE' => $_ENV['APP_ENV_MODE'],
+            'APP_TIME_ZONE' => $_ENV['APP_TIME_ZONE'],
+            'API_URL_JS' => $_ENV['API_URL_JS'],
+            'API_ACCESS_TOKEN' => $_ENV['API_ACCESS_TOKEN'],
+            'GTM_ID' => $_ENV['GTM_ID'],
+            'GTM_ENABLED' => $_ENV['GTM_ENABLED'],
+            'CDN_ENDPOINT' => $_ENV['CDN_ENDPOINT'],
         ]);
         
         return $container;
