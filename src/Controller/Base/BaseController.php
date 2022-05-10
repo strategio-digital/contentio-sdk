@@ -192,4 +192,27 @@ abstract class BaseController implements IController
         }
         exit;
     }
+    
+    public function sendHeaders(): never
+    {
+        $this->response->sendHeaders();
+        
+        if ($_ENV['APP_ENV_MODE'] !== 'develop') {
+            fastcgi_finish_request();
+        }
+        exit;
+    }
+    
+    public function redirectToWww(string $domain): void
+    {
+        $host = $this->request->getHost();
+        $port = $this->request->getPort() === 80 ? '' : (':' . $this->request->getPort());
+        $target = $this->request->getScheme() . '://www.' . $host . $port . $this->request->getRequestUri();
+        
+        if ($host === $domain) {
+            $this->response->headers->set('Location', $target);
+            $this->response->setStatusCode(301);
+            $this->sendHeaders();
+        }
+    }
 }

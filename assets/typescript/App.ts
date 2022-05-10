@@ -7,9 +7,12 @@ import SubscribeForm from "./Components/SubscribeForm";
 import ThumbGen from "./Components/ThumbGen";
 import Alpine from "./Plugins/Alpine";
 import FormValidator from "./Utils/FormValidator";
+import CookieConsent from "./Plugins/CookieConsent";
 
 (() => {
     ThumbGen();
+
+    CookieConsent();
 
     Alpine();
 
