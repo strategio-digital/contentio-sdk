@@ -9,8 +9,6 @@ services:
     restart: "no"
     networks:
       - strategio-network
-    environment:
-      TZ: ${APP_TIME_ZONE}
     ports:
       - "1337:80"
     volumes:

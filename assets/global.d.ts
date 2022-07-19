@@ -12,8 +12,7 @@ declare global {
         envs: {
             APP_ENV_MODE: string,
             APP_TIME_ZONE: string,
-            API_URL_JS: string
-            API_ACCESS_TOKEN: string,
+            API_URL_JS: string,
             GTM_ID: string,
             GTM_ENABLED: string,
             CDN_ENDPOINT: string,

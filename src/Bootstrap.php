@@ -9,7 +9,9 @@ namespace ContentioSdk;
 
 use ContentioSdk\Component\StdTemplate;
 use ContentioSdk\Debugger\ApiDebugger;
+use ContentioSdk\Helper\Domain;
 use ContentioSdk\Helper\Path;
+use ContentioSdk\Manager\ProjectManager;
 use Latte\Bridges\Tracy\LattePanel;
 use Latte\Engine;
 use Nette\Bridges\DITracy\ContainerPanel;
@@ -35,13 +37,22 @@ class Bootstrap
      */
     public function configure(array $configPaths): Container
     {
-        // Load env
+        // Load .env
         $_ENV = array_merge(getenv(), $_ENV);
         $envPath = Path::viewDir() . '/../.env';
-        
         if (file_exists($envPath)) {
             $dotenv = new Dotenv();
             $dotenv->loadEnv($envPath);
+        }
+        
+        // Load project envs
+        $pm = new ProjectManager;
+        $envs = $pm->loadDomainEnvs();
+        
+        if (!$envs) {
+            require_once Path::wwwDir() . '/project-404.php';
+        } else {
+            $_ENV = array_merge($_ENV, $envs);
         }
         
         // Setup debugger
@@ -58,6 +69,8 @@ class Bootstrap
         
         /** @var Container $container */
         $container = new $class;
+        
+        $container->addService('projectManager', $pm);
     
         /** @var ApiDebugger $apiDebugger */
         $apiDebugger = $container->getByType(ApiDebugger::class);
@@ -87,7 +100,6 @@ class Bootstrap
             'APP_ENV_MODE' => $_ENV['APP_ENV_MODE'],
             'APP_TIME_ZONE' => $_ENV['APP_TIME_ZONE'],
             'API_URL_JS' => $_ENV['API_URL_JS'],
-            'API_ACCESS_TOKEN' => $_ENV['API_ACCESS_TOKEN'],
             'GTM_ID' => $_ENV['GTM_ID'],
             'GTM_ENABLED' => $_ENV['GTM_ENABLED'],
             'CDN_ENDPOINT' => $_ENV['CDN_ENDPOINT'],

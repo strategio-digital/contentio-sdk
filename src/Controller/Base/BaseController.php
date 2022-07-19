@@ -17,7 +17,11 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\Utils;
 use Latte\Engine;
+use Nette\Schema\Expect;
+use Nette\Schema\Processor;
+use Nette\Schema\ValidationException;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -53,8 +57,7 @@ abstract class BaseController implements IController
         
         $apiHeaders = [
             'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'Api-Access-Token' => $_ENV['API_ACCESS_TOKEN'],
+            'Accept' => 'application/json'
         ];
         
         if ($this->userToken()) {
@@ -214,5 +217,59 @@ abstract class BaseController implements IController
             $this->response->setStatusCode(301);
             $this->sendHeaders();
         }
+    }
+    
+    /**
+     * @return array<string,mixed>|null
+     */
+    public function getRequestJsonData(): array|null
+    {
+        $content = $this->request->getContent();
+        
+        if (is_string($content)) {
+            return json_decode($content, true);
+        }
+        
+        return null;
+    }
+    
+    /**
+     * @param array<string, mixed>|null $data
+     * @param array<string, mixed> $structure
+     * @param bool $sendErrorResponse
+     * @return array<string, mixed>|false
+     */
+    public function validate(array|null $data, array $structure, bool $sendErrorResponse = true): array|false
+    {
+        $schema = Expect::structure($structure);
+        try {
+            $data = (new Processor())->process($schema, $data);
+            return json_decode((string)json_encode($data), true);
+        } catch (ValidationException $e) {
+            if ($sendErrorResponse) {
+                $this->sendJsonErrorResponse($e->getMessages());
+            }
+            return false;
+        }
+    }
+    
+    /**
+     * @param array<string,mixed> $data
+     * @param int $code
+     * @return never
+     */
+    public function sendJsonResponse(array $data = [], int $code = 200): never
+    {
+        exit((new JsonResponse($data, $code))->send());
+    }
+    
+    /**
+     * @param array<string,string> $messages
+     * @param int $code
+     * @return never
+     */
+    public function sendJsonErrorResponse(array $messages, int $code = 400): never
+    {
+        exit((new JsonResponse(['messages' => $messages], $code))->send());
     }
 }

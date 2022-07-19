@@ -21,7 +21,6 @@ _(If you read this readme on **npmjs.com**, switch to https://github.com/strateg
 
 ### 2. For contributors
 1. `git clone git@github.com:strategio-digital/contentio-sdk.git`
-2. `cp .env.example .env && pico .env`
 3. `./project.sh serve`
 4. `./project.sh app`
 5. `yarn && yarn dev`
@@ -126,6 +125,6 @@ public function index(string $slug): void
 ### 5. Creating image thumbnail
 ```latte
 {varType ContentioSdk\Component\Thumbnail\ThumbGen $thumbGen}
-{var $thumb = $thumbGen->create('_develop_contentio_app/article/56/test.png', rand(100, 500), null, 'SHRINK_ONLY', 80)}
+{var $thumb = $thumbGen->create('<slug>/article/56/test.png', 500, null, 'SHRINK_ONLY', 80)}
 <img loading="lazy" src="{$thumb->getSrc()}" width="{$thumb->getWidth()}" height="{$thumb->getHeight()}" alt="...">
 ```

@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace ContentioSdk\Router;
 
 use ContentioSdk\Controller\ArticleController;
+use ContentioSdk\Controller\Base\CoreApiController;
 use ContentioSdk\Controller\CategoryController;
 use ContentioSdk\Controller\ContactController;
 use ContentioSdk\Controller\CustomerController;
@@ -19,6 +20,8 @@ class RouterFactory extends BaseRouter
 {
     public function createRoutes(): UrlMatcher
     {
+        $this->add('core_api', '/api/project-update', [CoreApiController::class, 'projectUpdate']);
+        
         $this->add('home', '/', [HomeController::class, 'index']);
         $this->add('contact', '/kontakty', [ContactController::class, 'index']);
     

@@ -1,4 +1,5 @@
 services:
+    projectManager: ContentioSdk\Manager\ProjectManager
     routerFactory: ContentioSdk\Router\RouterFactory
     response: Symfony\Component\HttpFoundation\Response
     request:
