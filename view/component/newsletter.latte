@@ -3,7 +3,6 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  *}
 
-{varType ContentioSdk\Component\AssetLoader $assets}
 {varType ContentioSdk\Controller\Base\BaseController $controller}
 
 <div class="bg-gray-800">
@@ -31,7 +30,7 @@
 
             <p class="mt-3 text-sm text-gray-300">
                 Bezpečnost dat je pro nás prioritou, čtěte
-                <a href="{$controller->link('article_detail', ['slug' => 'gdpr-cookies'])}" class="text-white font-medium underline">
+                <a href="{$controller->link('article_detail', ['slug' => 'gdpr'])}" class="text-white font-medium underline">
                     zásady ochrany.
                 </a>
             </p>
@@ -44,5 +43,3 @@
         <div class="w-full border-t border-gray-700"></div>
     </div>
 </div>
-
-

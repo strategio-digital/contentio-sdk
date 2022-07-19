@@ -9,7 +9,6 @@ namespace ContentioSdk;
 
 use ContentioSdk\Component\StdTemplate;
 use ContentioSdk\Debugger\ApiDebugger;
-use ContentioSdk\Helper\Domain;
 use ContentioSdk\Helper\Path;
 use ContentioSdk\Manager\ProjectManager;
 use Latte\Bridges\Tracy\LattePanel;
@@ -49,9 +48,9 @@ class Bootstrap
         $pm = new ProjectManager;
         $envs = $pm->loadDomainEnvs();
         
-        if (!$envs) {
+        if (!$envs && !array_key_exists('APP_ENV_MODE', $_ENV)) {
             require_once Path::wwwDir() . '/project-404.php';
-        } else {
+        } else if ($envs) {
             $_ENV = array_merge($_ENV, $envs);
         }
         
