@@ -3,6 +3,7 @@
 namespace ContentioSdk\Manager;
 
 use ContentioSdk\Helper\Path;
+use Symfony\Component\HttpFoundation\Request;
 
 final class ProjectManager
 {
@@ -26,9 +27,8 @@ final class ProjectManager
      */
     public function loadDomainEnvs(): array|null
     {
-        /** @var array{host: string} $url */
-        $url = parse_url($_SERVER['HTTP_HOST']);
-        $filePath = Path::configDir() . '/envs/' . $url['host'] . '.env.php';
+        $request = Request::createFromGlobals();
+        $filePath = Path::configDir() . '/envs/' . $request->getHost() . '.env.php';
         return file_exists($filePath) ? require $filePath : null;
     }
 }
