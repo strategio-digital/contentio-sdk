@@ -15,7 +15,7 @@ final class ProjectManager
     public function saveToFile(string $domain, array $envs): void
     {
         $filePath = __DIR__ . "/../../config/envs/{$domain}.env.php";
-        $envs = file_exists($filePath) ? array_merge(require_once $filePath, $envs) : $envs;
+        $envs = file_exists($filePath) ? array_merge(require $filePath, $envs) : $envs;
         
         $envs = implode(PHP_EOL, array_map(fn($key, $value) => "    '{$key}' => '{$value}',", array_keys($envs), $envs));
         $string = '<?php return [' . PHP_EOL . $envs . PHP_EOL . '];';
