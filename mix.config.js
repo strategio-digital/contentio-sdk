@@ -29,7 +29,7 @@ module.exports = (mix, images = true) => {
     mix.ts("assets/typescript/Head.ts", "js").sourceMaps(false, "source-map");
 
     // App TS + Vue TS
-    mix.ts("assets/typescript/App.ts", "js").sourceMaps(false, "source-map"); //.vue();
+    mix.ts("assets/typescript/App.ts", "js").sourceMaps(false, "source-map").vue();
 
     // Scss & Css
     mix
@@ -39,7 +39,7 @@ module.exports = (mix, images = true) => {
     // Images
     mix.copyDirectory("assets/img/**/*", "www/temp/static/img");
 
-    // Directory hack (if you in use)
+    // Directory hack
     if (images) {
         mix.copyDirectory(
             "vendor/strategio/contentio-sdk/assets/img/**/*",
