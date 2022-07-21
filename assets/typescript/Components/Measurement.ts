@@ -73,3 +73,28 @@ export const trackLeadGenerate = () => {
         'eventLabel': 'contact'
     });
 }
+
+export const trackOnePurchase = (productId: number, productName: string, productCategory: string, orderId: number, priceWithTax: number, priceWithoutTax: number, tax: number): void => {
+    // UA - https://developers.google.com/tag-manager/enhanced-ecommerce#purchases
+    // GA4 - https://developers.google.com/tag-manager/ecommerce-ga4#measure_purchases
+    // GTAG - https://developers.google.com/tag-platform/gtagjs/reference/events#purchase
+    window.dataLayer.push({
+        event: 'purchase',
+        ecommerce: {
+            purchase: {
+                actionField: {
+                    id: orderId,
+                    revenue: priceWithoutTax,
+                    tax: tax
+                },
+                products: [{
+                    name: productName,
+                    id: productId,
+                    price: priceWithTax,
+                    category: productCategory,
+                    quantity: 1
+                }]
+            }
+        }
+    });
+}
