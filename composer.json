@@ -29,9 +29,16 @@
         "nette/schema": "^1.2"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.4"
+        "phpstan/phpstan": "^1.8"
     },
     "scripts": {
-        "phpstan": "vendor/bin/phpstan analyse src --level 8 --memory-limit 1G"
+        "phpstan": "vendor/bin/phpstan analyse -l 8 app --memory-limit 1G",
+        "latte": "vendor/bin/latte-lint view",
+        "neon": "vendor/bin/neon-lint config",
+        "analyse": [
+            "vendor/bin/phpstan analyse -l 8 app --memory-limit 1G",
+            "vendor/bin/latte-lint view",
+            "vendor/bin/neon-lint config"
+        ]
     }
 }

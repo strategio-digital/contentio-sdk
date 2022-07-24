@@ -21,11 +21,11 @@ _(If you read this readme on **npmjs.com**, switch to https://github.com/strateg
 
 ### 2. For contributors
 1. `git clone git@github.com:strategio-digital/contentio-sdk.git`
-3. `./project.sh serve`
-4. `./project.sh app`
-5. `yarn && yarn dev`
-6. `composer i`
-7. `composer phpstan`
+2. `./project.sh serve`
+3. `./project.sh app`
+4. `composer i`
+5. `composer analyse`
+6. `yarn && yarn dev`
 
 ### 3. After installation
 - Classic project: [http://localhost:8080](http://localhost:8080)
