@@ -56,21 +56,21 @@ export const disableGtmCookie = (type: cookieType) => {
     window.dataLayer.push({'event': 'consent-update'});
 }
 
-export const trackSubscribe = () => {
+export const trackSubscribe = (eventLabel: string = 'newsletter') => {
     window.dataLayer.push({
         'event': 'eventTracking',
         'eventCategory': 'form',
         'eventAction': 'conversion',
-        'eventLabel': 'newsletter'
+        'eventLabel': eventLabel
     });
 }
 
-export const trackLeadGenerate = () => {
+export const trackLeadGenerate = (eventLabel: string = 'contact') => {
     window.dataLayer.push({
         'event': 'eventTracking',
         'eventCategory': 'form',
         'eventAction': 'conversion',
-        'eventLabel': 'contact'
+        'eventLabel': eventLabel
     });
 }
 
