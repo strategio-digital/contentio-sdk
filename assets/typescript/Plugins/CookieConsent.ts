@@ -3,60 +3,60 @@
  * @author Jiří Zapletal (https://strategio.digital, jz@strategio.digital)
  */
 
-import "vanilla-cookieconsent/src/cookieconsent.js";
-import {enableGtmCookie, cookieType, disableGtmCookie} from "../Components/Measurement";
-import axios from "axios";
+import 'vanilla-cookieconsent/src/cookieconsent.js'
+import { enableGtmCookie, cookieType, disableGtmCookie } from '../Components/Measurement'
+import axios from 'axios'
 
 export default () => {
-    const cookieLogUrl = 'https://cookielog.strategio.digital';
-    const cookieConsent = initCookieConsent();
+    const cookieLogUrl = 'https://cookielog.strategio.dev/api'
+    const cookieConsent = initCookieConsent()
 
     const onFirstAction = async (user_preferences: UserPreferences, cookie: SavedCookieContent) => {
-        const domain = window.location.hostname;
-        const response = await axios.post('/create', {
+        const domain = window.location.hostname
+        const response = await axios.post('/cookie/create', {
             domain,
             context: JSON.stringify(cookie)
-        }, {baseURL: cookieLogUrl});
+        }, { baseURL: cookieLogUrl })
 
         cookieConsent.set('data', {
             value: {
-                uuid: response.data.uuid,
+                id: response.data.id,
                 domain
             }
-        });
+        })
     }
 
     const onAccept = (cookie: SavedCookieContent) => {
-        cookie.level.forEach(cookieEntity => enableGtmCookie(cookieEntity as cookieType));
+        cookie.level.forEach(cookieEntity => enableGtmCookie(cookieEntity as cookieType))
     }
 
     const onChange = async (cookie: SavedCookieContent, changed_preferences: string[]) => {
         changed_preferences.forEach(cookieEntity => cookie.level.includes(cookieEntity)
             ? enableGtmCookie(cookieEntity as cookieType)
             : disableGtmCookie(cookieEntity as cookieType)
-        );
+        )
 
-        const domain = cookie.data?.domain as string;
-        const uuid = cookie.data?.uuid as string;
+        const domain = cookie.data?.domain as string
+        const id = cookie.data?.id as string
 
-        await axios.post('/update', {
+        await axios.post('/cookie/update', {
             domain,
-            uuid,
+            id,
             context: JSON.stringify(cookie)
-        }, {baseURL: cookieLogUrl});
+        }, { baseURL: cookieLogUrl })
     }
 
     cookieConsent.run({
         onFirstAction: onFirstAction,
         onAccept: onAccept,
         onChange: onChange,
-        revision: 3,
+        revision: 4,
         gui_options: {
             consent_modal: {
                 layout: 'box',
                 position: 'bottom right',
                 transition: 'slide',
-                swap_buttons: true,
+                swap_buttons: true
             },
             settings_modal: {
                 layout: 'box',
@@ -82,7 +82,7 @@ export default () => {
                     secondary_btn: {
                         text: 'Nesouhlasím',
                         role: 'accept_necessary'
-                    },
+                    }
                 },
                 settings_modal: {
                     title: 'Nastavení cookies',
@@ -126,5 +126,5 @@ export default () => {
                 }
             }
         }
-    });
+    })
 }

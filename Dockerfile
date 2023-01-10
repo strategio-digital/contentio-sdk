@@ -22,9 +22,8 @@ RUN apt-get update && apt-get install -y \
     gnupg
 
 # NodeJS
-RUN curl -sL https://deb.nodesource.com/setup_17.x | bash - \
-    && apt-get update && apt-get install -y nodejs && npm i npm -g
-
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs && npm i npm -g
 # Yarn
 RUN corepack enable
 
