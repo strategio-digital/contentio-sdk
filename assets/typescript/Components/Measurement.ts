@@ -17,7 +17,6 @@ function gtag() {
     window.dataLayer.push(arguments);
 }
 
-
 const loadGtmScripts = () => {
     window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
     if (window.envs.GTM_ENABLED === 'yes') {
